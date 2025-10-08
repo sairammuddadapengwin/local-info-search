@@ -1,45 +1,48 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// In App.js in a new project
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Login from './src/pages/Login';
+import Splash from './src/pages/Splash';
+import AppExplanation from './src/pages/AppExplanation';
+import Otp from './src/pages/Otp';
+import PersonalInformation from './src/pages/PersonalInformation';
+import PersonalInformationSecond from './src/pages/PersonalInformationSecond';
+import RegisterSuccessWelcome from './src/pages/RegisterSuccessWelcome';
+import SignInScreen from './src/pages/SignInScreen';
+import ForgotPassword from './src/pages/ForgotPassword';
+import ForgotPasswordOtpSent from './src/pages/ForgotPasswordOtpSent';
+import ForgotPasswordSetup from './src/pages/ForgotPasswordSetup';
+import HomeScreen from './src/pages/HomeScreen';
+import { StatusBar } from 'react-native';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createNativeStackNavigator();
+
+function RootStack() {
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
+    <Stack.Navigator initialRouteName='HomeScreen' screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Splash" component={Splash} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="AppExplanation" component={AppExplanation} />
+      <Stack.Screen name="Otp" component={Otp} />
+      <Stack.Screen name="PersonalInformation" component={PersonalInformation} />
+      <Stack.Screen name="PersonalInformationSecond" component={PersonalInformationSecond} />
+      <Stack.Screen name="RegisterSuccessWelcome" component={RegisterSuccessWelcome} />
+      <Stack.Screen name="SignInScreen" component={SignInScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="ForgotPasswordOtpSent" component={ForgotPasswordOtpSent} />
+      <Stack.Screen name="ForgotPasswordSetup" component={ForgotPasswordSetup} />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    </Stack.Navigator>
   );
 }
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
+export default function App() {
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
