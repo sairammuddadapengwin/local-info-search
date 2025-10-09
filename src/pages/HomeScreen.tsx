@@ -1,7 +1,7 @@
 import React from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, ScrollView, StatusBar, Text, TextInput, View } from "react-native";
+import { Image, Pressable, ScrollView, StatusBar, Text, TextInput, View } from "react-native";
 import BottomNavigation from "../components/BottomNavigation";
 
 class Componentprops extends Baseprops { }
@@ -45,13 +45,13 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                                 </View>
 
                                 {[1, 2, 3, 4, 5, 6].map((e: any) => (
-                                    <View key={e} style={{ width: wp(30), marginStart: wp(3) }}>
+                                    <Pressable onPress={() => props.navigation.navigate('StoriesPlay')} key={e} style={{ width: wp(30), marginStart: wp(3) }}>
                                         <Image style={{ width: wp(30), height: hp(18), borderRadius: 10, }} source={require('../assets/fakeimg.jpg')} />
                                         <View style={{ marginTop: hp(-2.5), justifyContent: 'center', borderRadius: 20, alignSelf: 'center' }}>
                                             <Image style={{ width: 36, height: 36, borderRadius: 20, alignSelf: 'center' }} source={require('../assets/roundimg.jpg')} />
                                         </View>
                                         <Text style={{ color: '#000000', fontSize: 16, fontWeight: '500', marginTop: hp(0.5), textAlign: 'center' }}>Sairam</Text>
-                                    </View>
+                                    </Pressable>
                                 ))}
                             </View>
                         </ScrollView>
@@ -165,7 +165,7 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                 </ScrollView>
 
                 <View style={{ marginBottom: hp(2) }}>
-                    <BottomNavigation step="3" />
+                    <BottomNavigation step="1" navigation={props.navigation} />
                 </View>
             </View>
         </SafeAreaView>

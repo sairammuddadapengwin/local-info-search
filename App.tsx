@@ -16,6 +16,8 @@ import ForgotPasswordOtpSent from './src/pages/ForgotPasswordOtpSent';
 import ForgotPasswordSetup from './src/pages/ForgotPasswordSetup';
 import HomeScreen from './src/pages/HomeScreen';
 import { StatusBar } from 'react-native';
+import ReelsPlayList from './src/pages/ReelsPlayList';
+import StoriesPlay from './src/pages/StoriesPlay';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +37,8 @@ function RootStack() {
       <Stack.Screen name="ForgotPasswordOtpSent" component={ForgotPasswordOtpSent} />
       <Stack.Screen name="ForgotPasswordSetup" component={ForgotPasswordSetup} />
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="ReelsPlayList" component={ReelsPlayList} />
+      <Stack.Screen name="StoriesPlay" component={StoriesPlay} />
     </Stack.Navigator>
   );
 }
