@@ -19,11 +19,11 @@ const BottomNavigation: React.FC<Componentprops> = (props) => {
                 </Pressable>
             }
             {props.step == '2' ?
-                <Pressable>
+                <Pressable onPress={() => props.navigation.navigate('LocalSearchServices')}>
                     <Image style={{ width: 22, height: 22 }} resizeMode='contain' source={require('../assets/search1.png')} />
                 </Pressable>
                 :
-                <Pressable>
+                <Pressable onPress={() => props.navigation.navigate('LocalSearchServices')}>
                     <Image style={{ width: 22, height: 22 }} resizeMode='contain' source={require('../assets/search.png')} />
                 </Pressable>
             }

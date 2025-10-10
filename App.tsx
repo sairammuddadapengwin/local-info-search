@@ -18,6 +18,10 @@ import HomeScreen from './src/pages/HomeScreen';
 import { StatusBar } from 'react-native';
 import ReelsPlayList from './src/pages/ReelsPlayList';
 import StoriesPlay from './src/pages/StoriesPlay';
+import Notification from './src/pages/Notification';
+import Comments from './src/pages/Comments';
+import LocalSearchServices from './src/pages/LocalSearchServices';
+import ServiceDetails from './src/pages/ServiceDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +43,10 @@ function RootStack() {
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="ReelsPlayList" component={ReelsPlayList} />
       <Stack.Screen name="StoriesPlay" component={StoriesPlay} />
+      <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen name="Comments" component={Comments} />
+      <Stack.Screen name="LocalSearchServices" component={LocalSearchServices} />
+      <Stack.Screen name="ServiceDetails" component={ServiceDetails} />
     </Stack.Navigator>
   );
 }

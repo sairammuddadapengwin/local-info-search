@@ -9,7 +9,7 @@ class Componentprops extends Baseprops { }
 const HomeScreen: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
-             <StatusBar
+            <StatusBar
                 animated={true}
                 backgroundColor="#61dafb"
                 barStyle="dark-content"
@@ -28,7 +28,9 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: wp(3) }}>
                         <Image style={{ width: 28, height: 28 }} resizeMode="contain" source={require('../assets/Chat.png')} />
-                        <Image style={{ width: 28, height: 28, marginStart: wp(3) }} resizeMode="contain" source={require('../assets/notifi.png')} />
+                        <Pressable onPress={() => props.navigation.navigate('Notification')}>
+                            <Image style={{ width: 28, height: 28, marginStart: wp(3) }} resizeMode="contain" source={require('../assets/notifi.png')} />
+                        </Pressable>
                     </View>
                 </View>
 
@@ -81,7 +83,9 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                                     <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>247</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: wp(3) }}>
-                                    <Image style={{ width: 18, height: 18, tintColor: '#000000' }} resizeMode='contain' source={require('../assets/Chat.png')} />
+                                    <Pressable onPress={() => props.navigation.navigate('Comments')}>
+                                        <Image style={{ width: 18, height: 18, tintColor: '#000000' }} resizeMode='contain' source={require('../assets/Chat.png')} />
+                                    </Pressable>
                                     <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>57</Text>
                                 </View>
                             </View>

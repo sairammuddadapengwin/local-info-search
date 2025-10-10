@@ -12,7 +12,6 @@ const ReelsPlayList: React.FC<Componentprops> = (props) => {
 
     const [activeIndex, setActiveIndex] = useState(0);
 
-
     const reelsData = [
         { id: '1', video: require('../assets/sample1.mp4') },
         { id: '2', video: require('../assets/sample.mp4') },
@@ -21,7 +20,7 @@ const ReelsPlayList: React.FC<Componentprops> = (props) => {
 
     const onViewableItemsChanged = useRef(({ viewableItems }: any) => {
         if (viewableItems.length > 0) {
-            setActiveIndex(viewableItems[0].index);  // set currently visible video
+            setActiveIndex(viewableItems[0].index);  
         }
     }).current;
 
