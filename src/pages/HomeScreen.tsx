@@ -27,7 +27,9 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                         />
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: wp(3) }}>
-                        <Image style={{ width: 28, height: 28 }} resizeMode="contain" source={require('../assets/Chat.png')} />
+                        <Pressable onPress={() => props.navigation.navigate('Chats')}>
+                            <Image style={{ width: 28, height: 28 }} resizeMode="contain" source={require('../assets/Chat.png')} />
+                        </Pressable>
                         <Pressable onPress={() => props.navigation.navigate('Notification')}>
                             <Image style={{ width: 28, height: 28, marginStart: wp(3) }} resizeMode="contain" source={require('../assets/notifi.png')} />
                         </Pressable>
@@ -62,7 +64,9 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
 
                     <View style={{ backgroundColor: '#dcdcdc', paddingHorizontal: wp(5), paddingVertical: hp(1), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Image style={{ width: 45, height: 45, borderRadius: 25, }} source={require('../assets/roundimg.jpg')} />
+                            <Pressable onPress={() => props.navigation.navigate('UserProfile')}>
+                                <Image style={{ width: 45, height: 45, borderRadius: 25, }} source={require('../assets/roundimg.jpg')} />
+                            </Pressable>
                             <View style={{ marginStart: wp(3) }}>
                                 <Text style={{ color: '#000000', fontSize: 16, fontWeight: 'bold' }}>Oyin Dolapo</Text>
                                 <Text style={{ color: '#000000', fontSize: 14, fontWeight: 'bold' }}>1hr ago</Text>

@@ -28,11 +28,11 @@ const BottomNavigation: React.FC<Componentprops> = (props) => {
                 </Pressable>
             }
             {props.step == '3' ?
-                <Pressable>
+                <Pressable onPress={() => props.navigation.navigate('Post')}>
                     <Image style={{ width: 22, height: 22 }} resizeMode='contain' source={require('../assets/post1.png')} />
                 </Pressable>
                 :
-                <Pressable>
+                <Pressable onPress={() => props.navigation.navigate('Post')}>
                     <Image style={{ width: 22, height: 22 }} resizeMode='contain' source={require('../assets/post.png')} />
                 </Pressable>
             }
@@ -46,11 +46,11 @@ const BottomNavigation: React.FC<Componentprops> = (props) => {
                 </Pressable>
             }
             {props.step == '5' ?
-                <Pressable>
+                <Pressable onPress={() => props.navigation.navigate('MyProfile')}>
                     <Image style={{ width: 22, height: 22 }} resizeMode='contain' source={require('../assets/user1.png')} />
                 </Pressable>
                 :
-                <Pressable>
+                <Pressable onPress={() => props.navigation.navigate('MyProfile')}>
                     <Image style={{ width: 22, height: 22 }} resizeMode='contain' source={require('../assets/user.png')} />
                 </Pressable>
             }

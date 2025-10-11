@@ -6,7 +6,7 @@ import BottomNavigation from "../components/BottomNavigation";
 
 class Componentprops extends Baseprops { }
 
-const ServiceDetails: React.FC<Componentprops> = (props) => {
+const ServiceDetailsReels: React.FC<Componentprops> = (props) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
@@ -28,20 +28,24 @@ const ServiceDetails: React.FC<Componentprops> = (props) => {
                         />
                     </View>
 
-                    <Text style={{ color: '#006175', fontSize: 20, fontWeight: 'bold', marginTop: hp(3), marginHorizontal: wp(5) }}>Home Services</Text>
-                    <Text style={{ color: '#000000', fontWeight: '500', marginTop: hp(0.5), marginHorizontal: wp(5) }}>Selected based on your districts</Text>
 
-                    <Pressable onPress={() => props.navigation.navigate('ServiceDetailsReels')} style={{borderColor: '#00000080', flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, height: hp(5.5), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10}}>
-                        <Image style={{width: 30, height: 30, borderRadius: 10, marginStart: wp(1)}} source={require('../assets/edu.jpg')} />
-                        <Text style={{color: '#006175', fontSize: 18, fontWeight: '500', flex: 1, marginStart: wp(5)}}>Ac Service</Text>
-                        <Image style={{width: 12, height: 12, marginEnd: wp(7)}} resizeMode="contain" source={require('../assets/rightarrow.png')} />
-                    </Pressable>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: hp(2), marginHorizontal: wp(5) }}>
+                        {[1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13].map((e: any) => (
+                            <View key={e} style={{ width: wp(29), marginBottom: hp(1) }}>
+                                <Image style={{ width: wp(29), height: hp(20), }} source={require('../assets/fakeimg.jpg')} />
 
-                    <View style={{borderColor: '#00000080', flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, height: hp(5.5), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10}}>
-                        <Image style={{width: 30, height: 30, borderRadius: 10, marginStart: wp(1)}} source={require('../assets/edu.jpg')} />
-                        <Text style={{color: '#006175', fontSize: 18, fontWeight: '500', flex: 1, marginStart: wp(5)}}>Car Service</Text>
-                        <Image style={{width: 12, height: 12, marginEnd: wp(7)}} resizeMode="contain" source={require('../assets/rightarrow.png')} />
+                                <View style={{ flexDirection: 'row', alignItems: 'center', position: 'absolute', top: hp(1), left: wp(2) }}>
+                                    <Image style={{ width: 20, height: 20, borderRadius: 10, }} source={require('../assets/roundimg.jpg')} />
+                                    <View style={{ marginStart: wp(2) }}>
+                                        <Text style={{ color: '#ffffff', fontSize: 10, fontWeight: '500' }}>Oyin Dolapo</Text>
+                                        <Text style={{ color: '#ffffff', fontSize: 10, fontWeight: '500' }}>1hr ago</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        ))}
                     </View>
+
+
 
                 </ScrollView>
                 <View>
@@ -52,4 +56,4 @@ const ServiceDetails: React.FC<Componentprops> = (props) => {
     )
 }
 
-export default ServiceDetails;
+export default ServiceDetailsReels;

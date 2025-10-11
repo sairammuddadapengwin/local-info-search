@@ -1,5 +1,3 @@
-// In App.js in a new project
-
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -22,6 +20,12 @@ import Notification from './src/pages/Notification';
 import Comments from './src/pages/Comments';
 import LocalSearchServices from './src/pages/LocalSearchServices';
 import ServiceDetails from './src/pages/ServiceDetails';
+import ServiceDetailsReels from './src/pages/ServiceDetailsReels';
+import Post from './src/pages/Post';
+import Chats from './src/pages/Chats';
+import UserProfile from './src/pages/UserProfile';
+import MyProfile from './src/pages/MyProfile';
+import EditProfile from './src/pages/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +51,13 @@ function RootStack() {
       <Stack.Screen name="Comments" component={Comments} />
       <Stack.Screen name="LocalSearchServices" component={LocalSearchServices} />
       <Stack.Screen name="ServiceDetails" component={ServiceDetails} />
+      <Stack.Screen name="ServiceDetailsReels" component={ServiceDetailsReels} />
+      <Stack.Screen name="Post" component={Post} />
+      <Stack.Screen name="Chats" component={Chats} />
+      <Stack.Screen name="UserProfile" component={UserProfile} />
+      <Stack.Screen name="MyProfile" component={MyProfile} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+
     </Stack.Navigator>
   );
 }
