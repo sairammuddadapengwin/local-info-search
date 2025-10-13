@@ -11,9 +11,11 @@ const ForgotPassword: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
+                
                 <Image style={{ width: 20, height: 20, marginTop: hp(3), marginHorizontal: wp(7) }} resizeMode='contain' source={require('../assets/arrow.png')} />
                 <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 20, marginHorizontal: wp(7), marginTop: hp(7) }}>Forgot Password</Text>
                 <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 16, opacity: 0.7, marginHorizontal: wp(7), marginTop: hp(1) }}>Let’s help recover your account</Text>
+                
                 <Text style={{ marginHorizontal: wp(7), marginTop: hp(3), fontSize: 16, fontWeight: '500' }}>Username</Text>
                 <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3), height: hp(6), borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>
                     <TextInput

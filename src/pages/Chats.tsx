@@ -10,6 +10,7 @@ const Chats: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
+
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) }}>
                     <Pressable onPress={() => props.navigation.goBack()}>
                         <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/arrow.png')} />
@@ -17,6 +18,7 @@ const Chats: React.FC<Componentprops> = (props) => {
                     <Text style={{ color: '#000000', fontSize: 20, fontWeight: 'bold' }}>Chats</Text>
                     <Image style={{ width: 20, height: 20, tintColor: '#ffffff' }} resizeMode='contain' source={require('../assets/Delete.png')} />
                 </View>
+
                 <View style={{ borderColor: '#006175', marginHorizontal: wp(5), marginTop: hp(2), paddingHorizontal: wp(3), borderRadius: 10, borderWidth: 1, height: hp(5), flexDirection: 'row', alignItems: 'center' }}>
                     <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/typing.png')} />
                     <TextInput
@@ -25,6 +27,7 @@ const Chats: React.FC<Componentprops> = (props) => {
                         style={{ fontWeight: '500', opacity: 0.7, paddingHorizontal: wp(3) }}
                     />
                 </View>
+
                 <View>
                     <Text style={{ color: '#000000', fontSize: 18, marginTop: hp(2), marginHorizontal: wp(5), fontWeight: '500' }}>Frequently chatted</Text>
                     <ScrollView style={{ marginHorizontal: wp(5), paddingVertical: hp(2) }} horizontal>
@@ -36,9 +39,10 @@ const Chats: React.FC<Componentprops> = (props) => {
                         ))}
                     </ScrollView>
                 </View>
+
                 <ScrollView>
                     <Text style={{ color: '#000000', fontSize: 16, marginHorizontal: wp(5), fontWeight: '500' }}>All Messages</Text>
-                    <View style={{ flexDirection: 'row', marginTop: hp(2), alignItems: 'center', marginHorizontal: wp(5), justifyContent: 'space-between' }}>
+                    <Pressable onPress={() => props.navigation.navigate('ChatDetails')} style={{ flexDirection: 'row', marginTop: hp(2), alignItems: 'center', marginHorizontal: wp(5), justifyContent: 'space-between' }}>
                         <View>
                             <Image style={{ width: 50, height: 50, borderRadius: 25 }} source={require('../assets/man.jpg')} />
                         </View>
@@ -50,7 +54,7 @@ const Chats: React.FC<Componentprops> = (props) => {
                             <Text style={{ color: '#B3B9C9', fontWeight: 'bold' }}>08:43</Text>
                             <Image style={{ width: 12, height: 12, marginTop: 5 }} resizeMode="contain" source={require('../assets/tik.png')} />
                         </View>
-                    </View>
+                    </Pressable>
 
                     <View style={{ flexDirection: 'row', marginTop: hp(2), alignItems: 'center', marginHorizontal: wp(5), justifyContent: 'space-between' }}>
                         <View>
@@ -126,6 +130,7 @@ const Chats: React.FC<Componentprops> = (props) => {
                     </View>
 
                 </ScrollView>
+
                 <View>
                     <BottomNavigation step='1' navigation={props.navigation} />
                 </View>

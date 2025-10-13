@@ -21,6 +21,7 @@ const EditProfile: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
+                
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) }}>
                     <Pressable onPress={() => props.navigation.goBack()}>
                         <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/arrow.png')} />

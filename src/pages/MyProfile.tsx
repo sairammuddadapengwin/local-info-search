@@ -11,6 +11,7 @@ const MyProfile: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
+
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) }}>
                     <Pressable onPress={() => props.navigation.goBack()}>
                         <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/arrow.png')} />
@@ -36,7 +37,7 @@ const MyProfile: React.FC<Componentprops> = (props) => {
                     <PrimaryButton onclick={() => props.navigation.navigate('EditProfile')} title="Edit Profile" />
                 </View>
                 <View style={{marginHorizontal: wp(5), marginTop: hp(1)}}>
-                    <PrimaryButton title="My Orders / Bookings" />
+                    <PrimaryButton onclick={() => props.navigation.navigate('MyOrdersBooking')} title="My Orders / Bookings" />
                 </View>
 
                 
@@ -60,19 +61,8 @@ const MyProfile: React.FC<Componentprops> = (props) => {
                 </View>
 
                 <View style={{ backgroundColor: '#00000040', height: 1.5, marginTop: hp(2) }}></View> 
+
                 <ScrollView>
-                    {/* <View style={{ backgroundColor: '#00000040', height: 1.5, marginTop: hp(3) }}></View>
-                    <Text style={{ color: '#000000', fontSize: 16, fontWeight: 'bold', marginHorizontal: wp(5), marginTop: hp(1) }}>Highlights</Text>
-                    <ScrollView horizontal style={{ marginHorizontal: wp(5), marginTop: hp(1) }}>
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(e => (
-                            <View style={{ alignItems: 'center', marginEnd: wp(3) }}>
-                                <Image style={{ width: 56, height: 56, borderRadius: 28 }} source={require('../assets/leaf.jpg')} />
-                                <Text style={{ color: '#000000', fontWeight: '500', marginTop: hp(0.5), fontSize: 16 }}>Joe</Text>
-                            </View>
-                        ))}
-                    </ScrollView>*/}
-
-
                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: hp(1.5) }}>
                         <Text style={{ color: '#000000', fontSize: 18, fontWeight: 'bold' }}>Posts</Text>
                         <Text style={{ color: '#9A9A9A', fontSize: 18, fontWeight: 'bold' }}>Products</Text>
@@ -84,10 +74,8 @@ const MyProfile: React.FC<Componentprops> = (props) => {
                             <Image key={e} style={{ width: wp(28.5), marginBottom: hp(1), height: wp(28), borderRadius: 7 }} source={require('../assets/nature.jpg')} />
                         ))}
                     </View>
-
                 </ScrollView>
-
-
+                
                 <View>
                     <BottomNavigation step='5' navigation={props.navigation} />
                 </View>

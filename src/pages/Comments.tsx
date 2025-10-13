@@ -10,6 +10,7 @@ const Comments: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
+
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) }}>
                     <Pressable onPress={() => props.navigation.goBack()}>
                         <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/arrow.png')} />
@@ -17,6 +18,7 @@ const Comments: React.FC<Componentprops> = (props) => {
                     <Text style={{ color: '#000000', fontSize: 20, fontWeight: 'bold' }}>Comment</Text>
                     <Image style={{ width: 20, height: 20, tintColor: '#ffffff' }} resizeMode='contain' source={require('../assets/Delete.png')} />
                 </View>
+
                 <ScrollView>
                     <View style={{ backgroundColor: '#dcdcdc', paddingHorizontal: wp(5), paddingVertical: hp(1), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -69,6 +71,8 @@ const Comments: React.FC<Componentprops> = (props) => {
                     ))}
 
                 </ScrollView>
+
+                
                 <View>
                     <BottomNavigation step='1' navigation={props.navigation} />
                 </View>

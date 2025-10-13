@@ -14,6 +14,7 @@ const Login: React.FC<Componentprops> = (props) => {
                 <Image style={{ width: 20, height: 20, marginTop: hp(3), marginHorizontal: wp(7) }} resizeMode='contain' source={require('../assets/arrow.png')} />
                 <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 20, marginHorizontal: wp(7), marginTop: hp(7) }}>Phone</Text>
                 <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 16, opacity: 0.7, marginHorizontal: wp(7), marginTop: hp(1) }}>Enter your phone number</Text>
+                
                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: wp(3), height: hp(6), borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(3) }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Image style={{ width: 30, height: 30 }} resizeMode="contain" source={require('../assets/flag.png')} />
@@ -35,6 +36,7 @@ const Login: React.FC<Componentprops> = (props) => {
                         <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </View>
                 </View>
+                
             </View>
         </SafeAreaView>
     )

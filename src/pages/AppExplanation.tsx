@@ -254,6 +254,7 @@ const AppExplanation: React.FC<Componentprops> = (props) => {
                         <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </>
                 }
+                
             </View>
         </SafeAreaView>
     )

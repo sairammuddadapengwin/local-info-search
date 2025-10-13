@@ -26,6 +26,10 @@ import Chats from './src/pages/Chats';
 import UserProfile from './src/pages/UserProfile';
 import MyProfile from './src/pages/MyProfile';
 import EditProfile from './src/pages/EditProfile';
+import Followers from './src/pages/Followers';
+import MyOrdersBooking from './src/pages/MyOrdersBooking';
+import ChatDetails from './src/pages/ChatDetails';
+import AddStory from './src/pages/AddStory';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +61,10 @@ function RootStack() {
       <Stack.Screen name="UserProfile" component={UserProfile} />
       <Stack.Screen name="MyProfile" component={MyProfile} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="Followers" component={Followers} />
+      <Stack.Screen name="MyOrdersBooking" component={MyOrdersBooking} />
+      <Stack.Screen name="ChatDetails" component={ChatDetails} />
+      <Stack.Screen name="AddStory" component={AddStory} />
 
     </Stack.Navigator>
   );

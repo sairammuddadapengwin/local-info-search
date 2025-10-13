@@ -10,6 +10,7 @@ const Notification: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
+
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) }}>
                     <Pressable onPress={() => props.navigation.goBack()}>
                         <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/arrow.png')} />
@@ -17,6 +18,7 @@ const Notification: React.FC<Componentprops> = (props) => {
                     <Text style={{ color: '#000000', fontSize: 20, fontWeight: 'bold' }}>Notifications</Text>
                     <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/Delete.png')} />
                 </View>
+
                 <ScrollView>
                     <View style={{ marginHorizontal: wp(5) }}>
                         <Text style={{ color: '#000000', fontSize: 16, fontWeight: 'bold', marginTop: hp(2) }}>Today</Text>
@@ -94,10 +96,8 @@ const Notification: React.FC<Componentprops> = (props) => {
                             </View>
                         </View>
                     </View>
-
-
-
                 </ScrollView>
+                
                 <View>
                     <BottomNavigation step='1' navigation={props.navigation} />
                 </View>

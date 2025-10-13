@@ -27,6 +27,7 @@ const Post: React.FC<Componentprops> = (props) => {
             style={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
                 <View style={{ flex: 1 }}>
+
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) }}>
                         <Pressable onPress={() => props.navigation.goBack()}>
                             <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/arrow.png')} />
@@ -34,6 +35,7 @@ const Post: React.FC<Componentprops> = (props) => {
                         <Text style={{ color: '#000000', fontSize: 20, fontWeight: 'bold' }}>Post</Text>
                         <Image style={{ width: 20, height: 20, tintColor: '#ffffff' }} resizeMode='contain' source={require('../assets/Delete.png')} />
                     </View>
+                    
                     <ScrollView>
                         <Text style={{ marginHorizontal: wp(7), marginTop: hp(3), fontSize: 16, fontWeight: '500' }}>Select Image(s)</Text>
                         <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3), height: hp(16), justifyContent: 'flex-end', borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>

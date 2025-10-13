@@ -37,16 +37,17 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                 </View>
 
                 <ScrollView>
+
                     <View style={{ height: hp(25) }}>
                         <ScrollView horizontal style={{ marginTop: hp(2), marginHorizontal: wp(3) }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <View style={{ width: wp(25), marginStart: wp(2) }}>
+                                <Pressable onPress={() => props.navigation.navigate('AddStory')} style={{ width: wp(25), marginStart: wp(2) }}>
                                     <View style={{ borderColor: '#000000', backgroundColor: '#dcdcdc', borderWidth: 1, width: wp(25), borderRadius: 10, height: hp(18) }}></View>
                                     <View style={{ width: 36, height: 36, marginTop: hp(-2.5), justifyContent: 'center', backgroundColor: '#000000', borderColor: '#000000', borderWidth: 1, borderRadius: 20, alignSelf: 'center' }}>
                                         <Image style={{ width: 18, height: 18, alignSelf: 'center', tintColor: '#ffffff' }} source={require('../assets/plus.png')} />
                                     </View>
                                     <Text style={{ color: '#000000', fontSize: 16, fontWeight: '500', marginTop: hp(0.5), textAlign: 'center' }}>Add Story</Text>
-                                </View>
+                                </Pressable>
 
                                 {[1, 2, 3, 4, 5, 6].map((e: any) => (
                                     <Pressable onPress={() => props.navigation.navigate('StoriesPlay')} key={e} style={{ width: wp(30), marginStart: wp(3) }}>
@@ -60,7 +61,6 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                             </View>
                         </ScrollView>
                     </View>
-
 
                     <View style={{ backgroundColor: '#dcdcdc', paddingHorizontal: wp(5), paddingVertical: hp(1), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -100,9 +100,8 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
 
                     <ScrollView horizontal style={{ marginTop: hp(2), marginHorizontal: wp(3) }}>
                         {[1, 2, 3, 4, 5, 6].map((e: any) => (
-                            <View key={e} style={{ width: wp(44), marginStart: wp(2) }}>
+                            <Pressable onPress={() => props.navigation.navigate('ReelsPlayList')} key={e} style={{ width: wp(44), marginStart: wp(2) }}>
                                 <Image style={{ width: wp(44), height: hp(25), borderRadius: 10, }} resizeMode="stretch" source={require('../assets/fakeimg.jpg')} />
-
                                 <View style={{ flexDirection: 'row', alignItems: 'center', position: 'absolute', top: hp(1), left: wp(2) }}>
                                     <Image style={{ width: 20, height: 20, borderRadius: 10, }} source={require('../assets/roundimg.jpg')} />
                                     <View style={{ marginStart: wp(2) }}>
@@ -131,7 +130,7 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                                     <Text style={{ fontSize: 10, color: '#ffffff', marginTop: hp(0.5) }}>Liked by Blazinshado and 100+</Text>
                                     <Text style={{ fontSize: 10, color: '#ffffff', }}>View all 57 comments</Text>
                                 </View>
-                            </View>
+                            </Pressable>
                         ))}
                     </ScrollView>
 
@@ -158,17 +157,16 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                                         <Image style={{ width: 18, height: 18, }} resizeMode='contain' source={require('../assets/Heart.png')} />
                                         <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>247</Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: wp(3) }}>
+                                    <Pressable onPress={() => props.navigation.navigate('Comments')} style={{ flexDirection: 'row', alignItems: 'center', marginStart: wp(3) }}>
                                         <Image style={{ width: 18, height: 18, tintColor: '#000000' }} resizeMode='contain' source={require('../assets/Chat.png')} />
                                         <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>57</Text>
-                                    </View>
+                                    </Pressable>
                                 </View>
                             </View>
                             <Text style={{ fontWeight: '500', marginTop: hp(1) }}>Liked by Blazinshado and 100+ others</Text>
                             <Text style={{ fontWeight: '500', opacity: 0.6, }}>View all 57 comments</Text>
                         </View>
                     ))}
-
 
                 </ScrollView>
 

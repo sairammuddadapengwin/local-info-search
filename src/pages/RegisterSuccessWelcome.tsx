@@ -11,12 +11,14 @@ const RegisterSuccessWelcome: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
+                
                 <View style={{ height: hp(45) }}>
                     <View style={{ height: hp(45), justifyContent: 'center', }}>
                         <View style={{ backgroundColor: '#dcdcdc', justifyContent: 'center', elevation: 2, width: 150, height: 150, alignSelf: 'center', borderRadius: 75 }}>
                             <Image style={{ width: 120, height: 120, alignSelf: 'center' }} resizeMode='contain' source={require('../assets/girl.png')} />
                         </View>
                     </View>
+
                     <View style={{ width: 14, height: 14, backgroundColor: '#006175', borderRadius: 10, position: 'absolute', left: wp(18), top: hp(8) }}></View>
                     <View style={{
                         position: 'absolute',
@@ -44,6 +46,7 @@ const RegisterSuccessWelcome: React.FC<Componentprops> = (props) => {
                     </View>
                     <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18, textAlign: 'center', position: 'absolute', bottom: hp(6), alignSelf: 'center', }}>Welcome</Text>
                 </View>
+
                 <View style={{ width: wp(80), alignSelf: 'center', marginTop: hp(1) }}>
                     <PrimaryButton onclick={() => props.navigation.navigate('SignInScreen')} title="Continue" />
                 </View>

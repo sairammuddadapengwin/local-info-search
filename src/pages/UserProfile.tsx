@@ -3,7 +3,6 @@ import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import BottomNavigation from "../components/BottomNavigation";
-import PrimaryButton from "../components/PrimaryButton";
 
 class Componentprops extends Baseprops { }
 
@@ -11,6 +10,7 @@ const UserProfile: React.FC<Componentprops> = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
+
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) }}>
                     <Pressable onPress={() => props.navigation.goBack()}>
                         <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/arrow.png')} />
@@ -51,16 +51,16 @@ const UserProfile: React.FC<Componentprops> = (props) => {
                     </View>
                     <View style={{ backgroundColor: '#000000', width: 1.5, marginHorizontal: wp(7) }}>
                     </View>
-                    <View style={{ alignItems: 'center' }}>
+                    <Pressable onPress={() => props.navigation.navigate('Followers')} style={{ alignItems: 'center' }}>
                         <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18 }}>870</Text>
                         <Text style={{ color: '#000000', fontWeight: '500', fontSize: 16 }}>Following</Text>
-                    </View>
+                    </Pressable>
                     <View style={{ backgroundColor: '#000000', width: 1.5, marginHorizontal: wp(7) }}>
                     </View>
-                    <View style={{ alignItems: 'center' }}>
+                    <Pressable onPress={() => props.navigation.navigate('Followers')} style={{ alignItems: 'center' }}>
                         <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18 }}>15k</Text>
                         <Text style={{ color: '#000000', fontWeight: '500', fontSize: 16 }}>Followers</Text>
-                    </View>
+                    </Pressable>
                 </View>
 
                 <ScrollView>
@@ -90,7 +90,6 @@ const UserProfile: React.FC<Componentprops> = (props) => {
                     </View>
 
                 </ScrollView>
-
 
                 <View>
                     <BottomNavigation step='1' navigation={props.navigation} />

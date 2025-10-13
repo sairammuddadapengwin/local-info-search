@@ -16,6 +16,7 @@ const ForgotPasswordOtpSent: React.FC<Componentprops> = (props) => {
                     <Image style={{ width: 20, height: 20, marginTop: hp(3), marginHorizontal: wp(7) }} resizeMode='contain' source={require('../assets/arrow.png')} />
                     <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 20, marginHorizontal: wp(7), marginTop: hp(7) }}>OTP sent</Text>
                     <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 16, opacity: 0.7, marginHorizontal: wp(7), marginTop: hp(1) }}>Enter the OTP sent to you</Text>
+                   
                     <View style={{ marginHorizontal: wp(7), marginTop: hp(3) , height: wp(18)}}>
                         <OtpInput
                             numberOfDigits={4}
@@ -45,6 +46,7 @@ const ForgotPasswordOtpSent: React.FC<Componentprops> = (props) => {
                             }}
                         />
                     </View>
+                    
                     <Text style={{ color: '#000000', fontWeight: '500',  textAlign: 'center', marginTop: hp(2) }}>Didn't receive any code ?</Text>
                     <Text style={{ color: '#FF3333', fontWeight: 'bold', fontSize: 14, textAlign: 'center', marginTop: hp(0.5) }}>RESEND CODE</Text>
                 </View>
