@@ -37,11 +37,11 @@ const BottomNavigation: React.FC<Componentprops> = (props) => {
                 </Pressable>
             }
             {props.step == '4' ?
-                <Pressable onPress={() => props.navigation.navigate('ReelsPlayList')}>
+                <Pressable onPress={() => props.navigation.navigate('PlayListCategory')}>
                     <Image style={{ width: 22, height: 22 }} resizeMode='contain' source={require('../assets/play1.png')} />
                 </Pressable>
                 :
-                <Pressable onPress={() => props.navigation.navigate('ReelsPlayList')}>
+                <Pressable onPress={() => props.navigation.navigate('PlayListCategory')}>
                     <Image style={{ width: 22, height: 22 }} resizeMode='contain' source={require('../assets/play.png')} />
                 </Pressable>
             }

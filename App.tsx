@@ -30,6 +30,7 @@ import Followers from './src/pages/Followers';
 import MyOrdersBooking from './src/pages/MyOrdersBooking';
 import ChatDetails from './src/pages/ChatDetails';
 import AddStory from './src/pages/AddStory';
+import PlayListCategory from './src/pages/PlayListCategory';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,7 @@ function RootStack() {
       <Stack.Screen name="MyOrdersBooking" component={MyOrdersBooking} />
       <Stack.Screen name="ChatDetails" component={ChatDetails} />
       <Stack.Screen name="AddStory" component={AddStory} />
+      <Stack.Screen name="PlayListCategory" component={PlayListCategory} />
 
     </Stack.Navigator>
   );
