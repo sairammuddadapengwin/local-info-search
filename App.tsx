@@ -31,6 +31,8 @@ import MyOrdersBooking from './src/pages/MyOrdersBooking';
 import ChatDetails from './src/pages/ChatDetails';
 import AddStory from './src/pages/AddStory';
 import PlayListCategory from './src/pages/PlayListCategory';
+import MapViewNearUsers from './src/pages/MapViewNearUsers';
+import ServiceDetailsUserDetails from './src/pages/ServiceDetailsUserDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,6 +69,8 @@ function RootStack() {
       <Stack.Screen name="ChatDetails" component={ChatDetails} />
       <Stack.Screen name="AddStory" component={AddStory} />
       <Stack.Screen name="PlayListCategory" component={PlayListCategory} />
+      <Stack.Screen name="MapViewNearUsers" component={MapViewNearUsers} />
+      <Stack.Screen name="ServiceDetailsUserDetails" component={ServiceDetailsUserDetails} />
 
     </Stack.Navigator>
   );
