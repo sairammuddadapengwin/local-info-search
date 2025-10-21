@@ -33,6 +33,9 @@ import AddStory from './src/pages/AddStory';
 import PlayListCategory from './src/pages/PlayListCategory';
 import MapViewNearUsers from './src/pages/MapViewNearUsers';
 import ServiceDetailsUserDetails from './src/pages/ServiceDetailsUserDetails';
+import Settings from './src/pages/Settings';
+import Security from './src/pages/Security';
+import AccountPrivacy from './src/pages/AccountPrivacy';
 
 const Stack = createNativeStackNavigator();
 
@@ -71,6 +74,9 @@ function RootStack() {
       <Stack.Screen name="PlayListCategory" component={PlayListCategory} />
       <Stack.Screen name="MapViewNearUsers" component={MapViewNearUsers} />
       <Stack.Screen name="ServiceDetailsUserDetails" component={ServiceDetailsUserDetails} />
+      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Security" component={Security} />
+      <Stack.Screen name="AccountPrivacy" component={AccountPrivacy} />
 
     </Stack.Navigator>
   );
