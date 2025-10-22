@@ -36,6 +36,7 @@ import ServiceDetailsUserDetails from './src/pages/ServiceDetailsUserDetails';
 import Settings from './src/pages/Settings';
 import Security from './src/pages/Security';
 import AccountPrivacy from './src/pages/AccountPrivacy';
+import ProfileAuthentication from './src/pages/ProfileAuthentication';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,7 +78,7 @@ function RootStack() {
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Security" component={Security} />
       <Stack.Screen name="AccountPrivacy" component={AccountPrivacy} />
-
+      <Stack.Screen name="ProfileAuthentication" component={ProfileAuthentication} />
     </Stack.Navigator>
   );
 }
