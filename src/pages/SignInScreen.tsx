@@ -35,7 +35,7 @@ const SignInScreen: React.FC<Componentprops> = (props) => {
                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                     <View>
                         <View style={{ width: wp(86), alignSelf: 'center', marginBottom: hp(2) }}>
-                            <PrimaryButton onclick={() => props.navigation.navigate('Otp')} title="Done" />
+                            <PrimaryButton onclick={() => props.navigation.navigate('HomeScreen')} title="Done" />
                         </View>
                         <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Do not have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign Up</Text></Text>
                     </View>

@@ -44,7 +44,7 @@ const ServiceDetailsReels: React.FC<Componentprops> = (props) => {
                     </View>
 
                     <Pressable onPress={() => props.navigation.navigate('MapViewNearUsers')}>
-                        <Image style={{ width: wp(94), height: hp(27), marginTop: hp(2), borderRadius: 20, alignSelf: 'center' }} source={require('../assets/map.jpg')} />
+                        <Image style={{ width: wp(94), height: hp(27), marginTop: hp(2), borderRadius: 20, alignSelf: 'center' }} source={require('../assets/map_icon.jpg')} />
                     </Pressable>
 
                     <View style={{ marginTop: hp(2) }}>
@@ -53,7 +53,7 @@ const ServiceDetailsReels: React.FC<Componentprops> = (props) => {
 
                                 <View style={{  width: wp(34), alignItems: 'center' }}>
                                     <View style={{}}>
-                                        <Image style={{ width: wp(34), height: hp(22), borderTopLeftRadius: 15 }} resizeMode='stretch' source={require('../assets/girl.jpg')} />
+                                        <Image style={{ width: wp(34), height: hp(22), borderTopLeftRadius: 15 }} resizeMode='stretch' source={require('../assets/girl_photo.jpg')} />
                                     </View>
                                     <Text style={{ color: '#004857', fontWeight: 'bold', fontSize: 12, textAlign: 'center', marginTop: hp(1) }}>Digital Marketing</Text>
                                 </View>

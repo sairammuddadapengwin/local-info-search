@@ -15,7 +15,7 @@ const RegisterSuccessWelcome: React.FC<Componentprops> = (props) => {
                 <View style={{ height: hp(45) }}>
                     <View style={{ height: hp(45), justifyContent: 'center', }}>
                         <View style={{ backgroundColor: '#dcdcdc', justifyContent: 'center', elevation: 2, width: 150, height: 150, alignSelf: 'center', borderRadius: 75 }}>
-                            <Image style={{ width: 120, height: 120, alignSelf: 'center' }} resizeMode='contain' source={require('../assets/girl.png')} />
+                            <Image style={{ width: 120, height: 120, alignSelf: 'center' }} resizeMode='contain' source={require('../assets/girlvisible.png')} />
                         </View>
                     </View>
 

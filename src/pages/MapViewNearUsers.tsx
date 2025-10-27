@@ -37,7 +37,7 @@ const MapViewNearUsers: React.FC<Componentprops> = (props) => {
                         <Text style={{ color: '#9A9A9A', fontSize: 13, fontWeight: 'bold' }}>Maddilapalem </Text>
                         <Image style={{ width: 15, height: 15 }} resizeMode='contain' source={require('../assets/Filter.png')} />
                     </View>
-                    <Image style={{ width: wp(100), flex: 1, marginTop: hp(2), alignSelf: 'center' }} source={require('../assets/map.jpg')} />
+                    <Image style={{ width: wp(100), flex: 1, marginTop: hp(2), alignSelf: 'center' }} source={require('../assets/map_icon.jpg')} />
                 </View>
 
                 <View>

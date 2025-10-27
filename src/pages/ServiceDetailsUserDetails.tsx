@@ -71,7 +71,7 @@ const ServiceDetailsUserDetails: React.FC<Componentprops> = (props) => {
                     <View style={{ backgroundColor: '#00000040', height: 1.5, marginTop: hp(1.5) }}></View>
 
                     <Pressable style={{flex: 1}} onPress={() => props.navigation.navigate('MapViewNearUsers')}>
-                        <Image style={{ width: wp(90), flex: 1, marginTop: hp(2), borderRadius: 20, alignSelf: 'center' }} source={require('../assets/map.jpg')} />
+                        <Image style={{ width: wp(90), flex: 1, marginTop: hp(2), borderRadius: 20, alignSelf: 'center' }} source={require('../assets/map_icon.jpg')} />
                     </Pressable>
                 </View>
             </View>

@@ -22,7 +22,7 @@ const Splash: React.FC<Componentprops> = (props) => {
                 <View style={{ width: 50, height: 50, backgroundColor: '#006175', borderRadius: 30, marginTop: hp(5), marginEnd: wp(20), alignSelf: 'flex-end' }}>
                 </View>
                 <View>
-                    <Image style={{ width: 200, height: 150, alignSelf: 'center', marginTop: hp(3) }} resizeMode='contain' source={require('../assets/map.png')} />
+                    <Image style={{ width: 200, height: 150, alignSelf: 'center', marginTop: hp(3) }} resizeMode='contain' source={require('../assets/map_photo.png')} />
                 </View>
                 <View style={{ width: 50, height: 50, backgroundColor: '#006175', borderRadius: 30, marginTop: hp(2), marginStart: wp(13), }}>
                 </View>

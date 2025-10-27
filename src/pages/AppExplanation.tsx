@@ -92,7 +92,7 @@ const AppExplanation: React.FC<Componentprops> = (props) => {
                         <Text style={{ color: '#000000', opacity: 0.6, fontWeight: '500', fontSize: 17, width: wp(80), marginStart: wp(7), marginTop: hp(2) }}>Connecting with Family and Friends provides a sense of belonging and security </Text><View style={{ width: wp(86), alignSelf: 'center', marginTop: hp(5) }}>
                             <PrimaryButton onclick={() => setStep('1')} title="Next" />
                         </View><View style={{ width: wp(86), alignSelf: 'center', marginTop: hp(2) }}>
-                            <SecondaryButton title="Skip" />
+                            <SecondaryButton onclick={() => setStep('1')} title="Skip" />
                         </View>
                         <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </>
@@ -172,7 +172,7 @@ const AppExplanation: React.FC<Componentprops> = (props) => {
                             <PrimaryButton onclick={() => setStep('2')} title="Next" />
                         </Pressable>
                         <View style={{ width: wp(86), alignSelf: 'center', marginTop: hp(2) }}>
-                            <SecondaryButton title="Skip" />
+                            <SecondaryButton onclick={() => setStep('2')} title="Skip" />
                         </View>
                         <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </>

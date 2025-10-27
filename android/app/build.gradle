@@ -82,10 +82,16 @@ android {
         applicationId "com.localinfosearch"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
     }
     signingConfigs {
+        release {
+            storeFile file('localinfosearch.keystore')
+            storePassword '123456'
+            keyAlias 'localinfosearch'
+            keyPassword '123456'
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
