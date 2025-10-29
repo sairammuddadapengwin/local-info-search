@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
+const BASE_URL = ''
+
 export const setToken = async (token: any) => {
     try {
         await AsyncStorage.setItem('token', token)
@@ -30,7 +32,7 @@ export const executeResponse = async (url: string, body: any) => {
     }
 
     try {
-        const response = await fetch(``, {
+        const response = await fetch(`${BASE_URL}/${url}`, {
             method: 'POST',
             headers: headers,
             body: body instanceof FormData ? body : JSON.stringify(body)
@@ -43,7 +45,7 @@ export const executeResponse = async (url: string, body: any) => {
     return { code: 2 }
 }
 
-export const executeGetResponse = async (url: string, body: any) => {
+export const executeGetResponse = async (url: string) => {
 
     const headers: any = {
     }
@@ -54,7 +56,7 @@ export const executeGetResponse = async (url: string, body: any) => {
     }
 
     try {
-        const response = await fetch(``, {
+        const response = await fetch(`${BASE_URL}/${url}`, {
             method: 'GET',
             headers: headers,
         })
