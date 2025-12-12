@@ -3,10 +3,18 @@ import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image, KeyboardAvoidingView, Platform,  ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
+import { useState } from "react";
 
 class Componentprops extends Baseprops { }
 
 const PersonalInformationSecond: React.FC<Componentprops> = (props) => {
+
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleBtn = async () => {
+
+    }
 
     return (
         <KeyboardAvoidingView

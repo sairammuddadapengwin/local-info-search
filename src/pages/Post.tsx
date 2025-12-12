@@ -1,11 +1,12 @@
 
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+    Image, KeyboardAvoidingView, Platform, Pressable, ScrollView,
+    StyleSheet, Text, TextInput, View
+} from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
-import DatePicker from "react-native-date-picker";
 import { useState } from "react";
-import { Dropdown } from "react-native-element-dropdown";
 import BottomNavigation from "../components/BottomNavigation";
 
 class Componentprops extends Baseprops { }
@@ -35,14 +36,14 @@ const Post: React.FC<Componentprops> = (props) => {
                         <Text style={{ color: '#000000', fontSize: 20, fontWeight: 'bold' }}>Post</Text>
                         <Image style={{ width: 20, height: 20, tintColor: '#ffffff' }} resizeMode='contain' source={require('../assets/Delete.png')} />
                     </View>
-                    
+
                     <ScrollView>
                         <Text style={{ marginHorizontal: wp(7), marginTop: hp(3), fontSize: 16, fontWeight: '500' }}>Select Image(s)</Text>
                         <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3), height: hp(16), justifyContent: 'flex-end', borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>
-                           <Image style={{width: 25, height: 25, tintColor: '#006175', marginBottom: hp(2), marginEnd: wp(2), alignSelf: 'flex-end'}}  source={require('../assets/post.png')} />
+                            <Image style={{ width: 25, height: 25, tintColor: '#006175', marginBottom: hp(2), marginEnd: wp(2), alignSelf: 'flex-end' }} source={require('../assets/post.png')} />
                         </View>
                         <Text style={{ marginHorizontal: wp(7), marginTop: hp(2), fontSize: 16, fontWeight: '500' }}>Add caption</Text>
-                        <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3),  borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>
+                        <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3), borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>
                             <TextInput
                                 style={{ fontSize: 16, fontWeight: '500', color: '#000000', paddingBottom: hp(4), opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
@@ -51,7 +52,7 @@ const Post: React.FC<Componentprops> = (props) => {
                         </View>
 
                         <Text style={{ marginHorizontal: wp(7), marginTop: hp(2), fontSize: 16, fontWeight: '500' }}>Add hastags</Text>
-                        <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3),  borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>
+                        <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3), borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>
                             <TextInput
                                 style={{ fontSize: 16, fontWeight: '500', color: '#000000', paddingBottom: hp(3), opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
@@ -60,14 +61,14 @@ const Post: React.FC<Componentprops> = (props) => {
                         </View>
 
                         <Text style={{ marginHorizontal: wp(7), marginTop: hp(2), fontSize: 16, fontWeight: '500' }}>Price</Text>
-                        <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3), height: hp(6),  borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>
+                        <View style={{ backgroundColor: '#DCDCDC', paddingHorizontal: wp(3), height: hp(6), borderColor: '#006175', borderWidth: 1, marginHorizontal: wp(7), borderRadius: 10, marginTop: hp(1) }}>
                             <TextInput
-                                style={{ fontSize: 16, fontWeight: '500', color: '#000000',  opacity: 0.7, marginStart: wp(3), flex: 1 }}
+                                style={{ fontSize: 16, fontWeight: '500', color: '#000000', opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
                             />
                         </View>
 
-                        <View style={{marginHorizontal: wp(7), marginTop: hp(5)}}>
+                        <View style={{ marginHorizontal: wp(7), marginTop: hp(5) }}>
                             <PrimaryButton title="Upload" />
                         </View>
 

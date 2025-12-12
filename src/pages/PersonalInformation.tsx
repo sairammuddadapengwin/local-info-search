@@ -1,11 +1,16 @@
 
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+    Alert,
+    Image, KeyboardAvoidingView, Platform, Pressable, ScrollView,
+    StyleSheet, Text, TextInput, View
+} from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import DatePicker from "react-native-date-picker";
 import { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
+import { createSignup } from "../api/api";
 
 class Componentprops extends Baseprops { }
 
@@ -14,6 +19,40 @@ const PersonalInformation: React.FC<Componentprops> = (props) => {
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
     const [gender, setGender] = useState(null);
+    const [createObject, setCreateObject] = useState<any>({})
+
+    const createUser = async () => {
+        if (!createObject.name || createObject.name.trim().length == 0) {
+            Alert.alert('Alert!', 'Please Enter Your Name.')
+            return
+        }
+        if (!createObject.email || createObject.email.trim().length == 0) {
+            Alert.alert('Alert!', 'Please Enter Your Email.')
+            return
+        }
+        if (!createObject.date_of_birth || createObject.date_of_birth.trim().length == 0) {
+            Alert.alert('Alert!', 'Please Enter Your Date Of Birth.')
+            return
+        }
+        if (!createObject.gender || createObject.gender.trim().length == 0) {
+            Alert.alert('Alert!', 'Please Enter Your Gender.')
+            return
+        }
+        if (!createObject.about || createObject.about.trim().length == 0) {
+            Alert.alert('Alert!', 'Please Enter Your About.')
+            return
+        }
+        const object = JSON.parse(JSON.stringify(createObject))
+        const response = await createSignup(object);
+        if (response.code == 0) {
+
+        } else {
+            Alert.alert(
+                'Alert!',
+                'Something went wrong. Please try again.'
+            );
+        }
+     }
 
     const data = [
         { label: 'Male', value: 'Male' },

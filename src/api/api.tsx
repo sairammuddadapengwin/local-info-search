@@ -68,3 +68,27 @@ export const executeGetResponse = async (url: string) => {
     return { code: 2 }
 }
 
+
+export const login = async (mobile: any) => {
+    return executeResponse('', { mobile })
+}
+
+export const otpVerify = async (mobile: any, otp: any) => {
+    return executeResponse('', { mobile, otp })
+}
+
+export const createSignup = async (body: any) => {
+    return executeResponse('', body)
+}
+
+export const passwordVerify = async (username: any, password: any) => {
+    return executeResponse('', { username, password })
+}
+
+export const forgotPassword = async (username: any, email: any, mobile: any) => {
+    return executeResponse('', { username, email, mobile })
+}
+
+export const forgotPasswordVerify = async (password: any) => {
+    return executeResponse('', { password })
+}
