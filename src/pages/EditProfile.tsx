@@ -1,27 +1,57 @@
 import React, { useState } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import BottomNavigation from "../components/BottomNavigation";
 import PrimaryButton from "../components/PrimaryButton";
 import { Dropdown } from "react-native-element-dropdown";
+import CameraModal from "../components/CameraModal";
+import { updateProfile } from "../api/api";
 
 class Componentprops extends Baseprops { }
 
 const EditProfile: React.FC<Componentprops> = (props) => {
 
     const [gender, setGender] = useState(null);
+    const [cameraModal, setCameraModal] = useState(false)
+    const [selectedImage, setSelectedImage] = useState<any>(null)
+    const [profileObj, setProfileObj] = useState<any>({})
 
     const data = [
         { label: 'Male', value: 'Male' },
         { label: 'FeMale', value: 'FeMale' },
     ];
 
+    const handleSelectedImage = (image: any) => {
+        if (image) {
+            setSelectedImage(image)
+        }
+    }
+
+    const handleUpdateBtn = async () => {
+        const object = JSON.parse(JSON.stringify(profileObj))
+        if (selectedImage && selectedImage != null) {
+            object.profile_pic = selectedImage
+        }
+        const response = await updateProfile(object)
+        if (response.code == 0) {
+
+        } else {
+            Alert.alert(
+                'Update Failed',
+                'Unable to update your profile. Please try again.'
+              );
+        }
+    }
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
+
+            {cameraModal && <CameraModal modalVisible={cameraModal} selectedImage={handleSelectedImage} setModalVisible={() => setCameraModal(false)} />}
+
             <View style={{ flex: 1 }}>
-                
+
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) }}>
                     <Pressable onPress={() => props.navigation.goBack()}>
                         <Image style={{ width: 20, height: 20 }} resizeMode='contain' source={require('../assets/arrow.png')} />
@@ -31,7 +61,15 @@ const EditProfile: React.FC<Componentprops> = (props) => {
                 </View>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(4) }}>
-                    <Image style={{ width: 60, height: 60, borderRadius: 30, }} source={require('../assets/roundimg.jpg')} />
+                    {selectedImage ?
+                        <Pressable onPress={() => setCameraModal(true)}>
+                            <Image style={{ width: 60, height: 60, borderRadius: 30, }} source={{ uri: selectedImage.uri }} />
+                        </Pressable>
+                        :
+                        <Pressable onPress={() => setCameraModal(true)}>
+                            <Image style={{ width: 60, height: 60, borderRadius: 30, }} source={require('../assets/roundimg.jpg')} />
+                        </Pressable>
+                    }
                     <View style={{ flex: 1, marginStart: wp(3) }}>
                         <Text style={{ color: '#000000', fontSize: 18, fontWeight: 'bold' }}>Oyin Dolapo</Text>
                         <Text style={{ color: '#000000', marginTop: hp(0.5), fontWeight: '500' }}>Abeokuta, Ogun</Text>

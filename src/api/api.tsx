@@ -92,3 +92,21 @@ export const forgotPassword = async (username: any, email: any, mobile: any) => 
 export const forgotPasswordVerify = async (password: any) => {
     return executeResponse('', { password })
 }
+
+export const updateProfile = async (body: any) => {
+    const data = new FormData()
+    for (const [key, value] of Object.entries<any>(body)) {
+        if (key == 'profile_pic') {
+            if (value && value.uri) {
+                data.append('profile_pic', {
+                    uri: value.uri,
+                    type: value.type,
+                    name: value.fileName
+                })
+            }
+        } else {
+            data.append(key, value)
+        }
+    }
+    return executeResponse('', data)
+}
