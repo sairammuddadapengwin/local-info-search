@@ -1,8 +1,9 @@
 import React, { useCallback } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, View } from "react-native";
+import { Alert, Image, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import { executeGetResponse, getToken } from "../api/api";
 
 class Componentprops extends Baseprops { }
 
@@ -10,11 +11,38 @@ const Splash: React.FC<Componentprops> = (props) => {
 
     useFocusEffect(
         useCallback(() => {
-            setTimeout(() => {
-                props.navigation.navigate('AppExplanation')
-            }, 1000);
+            loadProfileLoading()
         }, [])
     )
+
+    const loadProfileLoading = async () => {
+        const token = await getToken();
+        if (token && token != '') {
+            const response = await executeGetResponse('secure/profile')
+            if (response.code == 0) {
+                if (response.data && response.data.profile_flag == 1 && response.data.password_flag == 1) {
+                    props.navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'HomeScreen' }]
+                    })
+                } else if (response.data && response.data.profile_flag == 1 && response.data.password_flag == 0) {
+                    props.navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'PersonalInformationSecond', params: { mobile: response.data.mobile } }]
+                    })
+                } else if (response.data && response.data.profile_flag == 0 && response.data.password_flag == 0) {
+                    props.navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'PersonalInformation', params: { mobile: response.data.mobile } }]
+                    })
+                }
+            } else {
+                Alert.alert('Alert!', 'Unable to get details.')
+            }
+        } else {
+            props.navigation.navigate('AppExplanation')
+        }
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>

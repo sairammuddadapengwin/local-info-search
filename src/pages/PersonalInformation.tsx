@@ -2,6 +2,7 @@
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
+    ActivityIndicator,
     Alert,
     Image, KeyboardAvoidingView, Platform, Pressable, ScrollView,
     StyleSheet, Text, TextInput, View
@@ -11,18 +12,24 @@ import DatePicker from "react-native-date-picker";
 import { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { createSignup } from "../api/api";
+import moment from "moment";
 
 class Componentprops extends Baseprops { }
 
 const PersonalInformation: React.FC<Componentprops> = (props) => {
 
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState<any>('')
     const [open, setOpen] = useState(false)
-    const [gender, setGender] = useState(null);
+    const [gender, setGender] = useState<any>(null);
     const [createObject, setCreateObject] = useState<any>({})
+    const [indicator, setIndicator] = useState(false)
 
-    const createUser = async () => {
-        if (!createObject.name || createObject.name.trim().length == 0) {
+    const handleInputChangeValue = (key: string, value: any) => {
+        setCreateObject((e: any) => ({ ...e, [key]: value }))
+    }
+
+    const handleCreateUser = async () => {
+        if (!createObject.full_name || createObject.full_name.trim().length == 0) {
             Alert.alert('Alert!', 'Please Enter Your Name.')
             return
         }
@@ -30,11 +37,17 @@ const PersonalInformation: React.FC<Componentprops> = (props) => {
             Alert.alert('Alert!', 'Please Enter Your Email.')
             return
         }
-        if (!createObject.date_of_birth || createObject.date_of_birth.trim().length == 0) {
+        const email = createObject.email.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            Alert.alert('Alert!', 'Please enter a valid email address.');
+            return;
+        }
+        if (!date) {
             Alert.alert('Alert!', 'Please Enter Your Date Of Birth.')
             return
         }
-        if (!createObject.gender || createObject.gender.trim().length == 0) {
+        if (gender.trim().length == 0) {
             Alert.alert('Alert!', 'Please Enter Your Gender.')
             return
         }
@@ -43,16 +56,23 @@ const PersonalInformation: React.FC<Componentprops> = (props) => {
             return
         }
         const object = JSON.parse(JSON.stringify(createObject))
+        object.dob = moment(date).format('YYYY-MM-DD')
+        object.gender = gender
+        setIndicator(true)
         const response = await createSignup(object);
+        setIndicator(false)
         if (response.code == 0) {
-
+            props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'PersonalInformationSecond' }]
+            })
         } else {
             Alert.alert(
                 'Alert!',
                 'Something went wrong. Please try again.'
             );
         }
-     }
+    }
 
     const data = [
         { label: 'Male', value: 'Male' },
@@ -75,6 +95,8 @@ const PersonalInformation: React.FC<Componentprops> = (props) => {
                             <TextInput
                                 style={{ fontSize: 16, fontWeight: 'bold', color: '#000000', opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
+                                value={createObject.full_name}
+                                onChangeText={text => handleInputChangeValue('full_name', text)}
                             />
                         </View>
                         <Text style={{ marginHorizontal: wp(7), marginTop: hp(2), fontSize: 16, fontWeight: '500' }}>Email Address</Text>
@@ -82,21 +104,28 @@ const PersonalInformation: React.FC<Componentprops> = (props) => {
                             <TextInput
                                 style={{ fontSize: 16, fontWeight: 'bold', color: '#000000', opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
+                                value={createObject.email}
+                                onChangeText={text => handleInputChangeValue('email', text)}
                             />
                         </View>
 
                         <View style={{ marginHorizontal: wp(7), flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View>
                                 <Text style={{ marginTop: hp(2), fontSize: 16, fontWeight: '500' }}>Date of birth</Text>
-                                <Pressable onPress={() => setOpen(true)} style={{ backgroundColor: '#DCDCDC', width: wp(40), paddingHorizontal: wp(3), height: hp(6), borderColor: '#006175', borderWidth: 1, borderRadius: 10, marginTop: hp(1) }}>
-                                    <Text></Text>
+                                <Pressable onPress={() => setOpen(true)} style={{ backgroundColor: '#DCDCDC', justifyContent: 'center', width: wp(40), paddingHorizontal: wp(3), height: hp(6), borderColor: '#006175', borderWidth: 1, borderRadius: 10, marginTop: hp(1) }}>
+                                    {date ?
+                                        <Text style={{ color: '#000000', fontSize: 16, fontWeight: '500' }}>{moment(date).format('YYYY-MM-DD')}</Text>
+                                        :
+                                        <></>
+                                    }
                                 </Pressable>
                             </View>
 
                             <DatePicker
+                                mode="date"
                                 modal
                                 open={open}
-                                date={date}
+                                date={date ? date : new Date()}
                                 onConfirm={(date) => {
                                     setOpen(false)
                                     setDate(date)
@@ -134,6 +163,8 @@ const PersonalInformation: React.FC<Componentprops> = (props) => {
                             <TextInput
                                 style={{ fontSize: 16, fontWeight: 'bold', color: '#000000', paddingBottom: hp(10), opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
+                                value={createObject.about}
+                                onChangeText={text => handleInputChangeValue('about', text)}
                             />
                         </View>
 
@@ -141,9 +172,9 @@ const PersonalInformation: React.FC<Componentprops> = (props) => {
 
                     <View>
                         <View style={{ width: wp(86), alignSelf: 'center', marginBottom: hp(2) }}>
-                            <PrimaryButton onclick={() => props.navigation.navigate('PersonalInformationSecond')} title="Next" />
+                            {indicator && <ActivityIndicator color="#006175" size="large" style={{ marginBottom: hp(2) }} />}
+                            <PrimaryButton onclick={() => handleCreateUser()} title="Next" />
                         </View>
-                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </View>
                 </View>
             </SafeAreaView>

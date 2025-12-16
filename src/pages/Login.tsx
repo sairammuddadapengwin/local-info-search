@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { Activity, useState } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Alert, Image, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, Image, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { login } from "../api/api";
 
@@ -10,6 +10,7 @@ class Componentprops extends Baseprops { }
 const Login: React.FC<Componentprops> = (props) => {
 
     const [mobile, setMobile] = useState<any>('')
+    const [indicator, setIndicator] = useState(false)
 
     const handleLogout = async () => {
 
@@ -22,10 +23,11 @@ const Login: React.FC<Componentprops> = (props) => {
             Alert.alert('Alert!', 'Please Enter Valid Your Mobile')
             return
         }
-
+        setIndicator(true)
         const response = await login(mobile);
+        setIndicator(false)
         if (response.code == 0) {
-
+            props.navigation.navigate('Otp', {mobile: mobile})
         } else {
             Alert.alert('Alert!', 'Something went wrong. Please try again.');
         }
@@ -48,15 +50,18 @@ const Login: React.FC<Componentprops> = (props) => {
                         placeholderTextColor="#000000"
                         keyboardType="numeric"
                         maxLength={10}
+                        value={mobile}
+                        onChangeText={setMobile}
                         placeholder="Enter Mobile Number" />
                 </View>
 
                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                     <View>
+                       {indicator && <ActivityIndicator color="#006175" size="large" style={{marginBottom: hp(2)}} /> }
                         <View style={{ width: wp(86), alignSelf: 'center', marginBottom: hp(2) }}>
-                            <PrimaryButton onclick={() => props.navigation.navigate('Otp')} title="Send Otp" />
+                            <PrimaryButton onclick={() => handleLogout()} title="Send Otp" />
                         </View>
-                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
+                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Already have an account?  <Text onPress={() => props.navigation.navigate('SignInScreen')} style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </View>
                 </View>
 

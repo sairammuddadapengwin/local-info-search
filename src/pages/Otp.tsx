@@ -1,27 +1,32 @@
 import React, { useState } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Alert, Image, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Image, StyleSheet, Text, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { OtpInput } from "react-native-otp-entry";
-import { otpVerify } from "../api/api";
+import { otpVerify, setToken } from "../api/api";
 
 class Componentprops extends Baseprops { }
 
 const Otp: React.FC<Componentprops> = (props) => {
 
     const [otp, setOtp] = useState<any>('')
+    const [indicator, setIndicator] = useState(false)
 
     const handleLogout = async () => {
-
-        if (otp && otp.trim().length != 4) {
-            Alert.alert('Alert!', 'Please Enter Otp.')
-            return
+        if (!otp || otp.length !== 4) {
+            Alert.alert('Alert!', 'Please enter a valid 4-digit OTP.');
+            return;
         }
-
-        const response = await otpVerify(props.route && props.route.mobile, otp);
+        setIndicator(true)
+        const response = await otpVerify(props.route && props.route.params.mobile, otp);
+        setIndicator(false)
         if (response.code == 0) {
-
+            setToken(response.token)
+            props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'PersonalInformation', params: { mobile: props.route && props.route.params.mobile } }]
+            })
         } else {
             Alert.alert('Alert!', 'Invalid Credentials');
         }
@@ -46,7 +51,7 @@ const Otp: React.FC<Componentprops> = (props) => {
                             type="numeric"
                             secureTextEntry={false}
                             focusStickBlinkingDuration={500}
-                            onTextChange={(text) => console.log(text)}
+                            onTextChange={(text) => setOtp(text)}
                             onFilled={(text) => console.log(`OTP is ${text}`)}
                             textInputProps={{
                                 accessibilityLabel: "One-Time Password",
@@ -71,10 +76,10 @@ const Otp: React.FC<Componentprops> = (props) => {
 
                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                     <View>
+                    {indicator && <ActivityIndicator color="#006175" size="large" style={{marginBottom: hp(2)}} /> }
                         <View style={{ width: wp(86), alignSelf: 'center', marginBottom: hp(2) }}>
-                            <PrimaryButton onclick={() => props.navigation.navigate('PersonalInformation')} title="Verify" />
+                            <PrimaryButton onclick={() => handleLogout()} title="Verify" />
                         </View>
-                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </View>
                 </View>
 

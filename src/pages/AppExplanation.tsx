@@ -94,7 +94,7 @@ const AppExplanation: React.FC<Componentprops> = (props) => {
                         </View><View style={{ width: wp(86), alignSelf: 'center', marginTop: hp(2) }}>
                             <SecondaryButton onclick={() => setStep('1')} title="Skip" />
                         </View>
-                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
+                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text onPress={() => props.navigation.navigate('SignInScreen')} style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </>
                 }
 
@@ -174,7 +174,7 @@ const AppExplanation: React.FC<Componentprops> = (props) => {
                         <View style={{ width: wp(86), alignSelf: 'center', marginTop: hp(2) }}>
                             <SecondaryButton onclick={() => setStep('2')} title="Skip" />
                         </View>
-                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
+                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text onPress={() => props.navigation.navigate('SignInScreen')} style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </>
                 }
 
@@ -251,7 +251,7 @@ const AppExplanation: React.FC<Componentprops> = (props) => {
                         <View style={{ width: wp(86), alignSelf: 'center', marginTop: hp(5) }}>
                             <PrimaryButton onclick={() => props.navigation.navigate('Login')} title="Continue" />
                         </View>
-                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
+                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginTop: hp(2) }}>Already have an account?  <Text onPress={() => props.navigation.navigate('SignInScreen')} style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </>
                 }
                 

@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Image, StyleSheet, Text, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { OtpInput } from "react-native-otp-entry";
+import { forgotPasswordVerify } from "../api/api";
 
 class Componentprops extends Baseprops { }
 
 const ForgotPasswordOtpSent: React.FC<Componentprops> = (props) => {
+
+    const [otp, setOtp] = useState<any>('')
+    const [indicator, setIndicator] = useState(false)
+
+    const handleBtn = async () => {
+        if (!otp || otp.length !== 4) {
+            Alert.alert('Alert!', 'Please enter a valid 4-digit OTP.');
+            return;
+        }
+        setIndicator(true)
+        const response = await forgotPasswordVerify(props.route && props.route.params.username, otp)
+        setIndicator(false)
+        if (response.code == 0) {
+            props.navigation.navigate('ForgotPasswordSetup', {username: props.route && props.route.params.username})
+        } else {
+            Alert.alert(
+                'Alert!',
+                'Invalid OTP. Please try again.'
+            );
+        }
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
@@ -16,8 +38,8 @@ const ForgotPasswordOtpSent: React.FC<Componentprops> = (props) => {
                     <Image style={{ width: 20, height: 20, marginTop: hp(3), marginHorizontal: wp(7) }} resizeMode='contain' source={require('../assets/arrow.png')} />
                     <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 20, marginHorizontal: wp(7), marginTop: hp(7) }}>OTP sent</Text>
                     <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 16, opacity: 0.7, marginHorizontal: wp(7), marginTop: hp(1) }}>Enter the OTP sent to you</Text>
-                   
-                    <View style={{ marginHorizontal: wp(7), marginTop: hp(3) , height: wp(18)}}>
+
+                    <View style={{ marginHorizontal: wp(7), marginTop: hp(3), height: wp(18) }}>
                         <OtpInput
                             numberOfDigits={4}
                             autoFocus={false}
@@ -28,7 +50,7 @@ const ForgotPasswordOtpSent: React.FC<Componentprops> = (props) => {
                             type="numeric"
                             secureTextEntry={false}
                             focusStickBlinkingDuration={500}
-                            onTextChange={(text) => console.log(text)}
+                            onTextChange={(text) => setOtp(text)}
                             onFilled={(text) => console.log(`OTP is ${text}`)}
                             textInputProps={{
                                 accessibilityLabel: "One-Time Password",
@@ -46,17 +68,17 @@ const ForgotPasswordOtpSent: React.FC<Componentprops> = (props) => {
                             }}
                         />
                     </View>
-                    
-                    <Text style={{ color: '#000000', fontWeight: '500',  textAlign: 'center', marginTop: hp(2) }}>Didn't receive any code ?</Text>
+
+                    <Text style={{ color: '#000000', fontWeight: '500', textAlign: 'center', marginTop: hp(2) }}>Didn't receive any code ?</Text>
                     <Text style={{ color: '#FF3333', fontWeight: 'bold', fontSize: 14, textAlign: 'center', marginTop: hp(0.5) }}>RESEND CODE</Text>
                 </View>
 
                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                     <View>
                         <View style={{ width: wp(86), alignSelf: 'center', marginBottom: hp(2) }}>
-                            <PrimaryButton onclick={() => props.navigation.navigate('ForgotPasswordSetup')} title="Verify" />
+                            {indicator && <ActivityIndicator color="#006175" size="large" style={{ marginBottom: hp(2) }} />}
+                            <PrimaryButton onclick={() => handleBtn()} title="Verify" />
                         </View>
-                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </View>
                 </View>
             </View>

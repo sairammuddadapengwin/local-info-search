@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const BASE_URL = ''
+const BASE_URL = 'https://localinfo.pengwinsolutions.in/api'
 
 export const setToken = async (token: any) => {
     try {
@@ -70,27 +70,35 @@ export const executeGetResponse = async (url: string) => {
 
 
 export const login = async (mobile: any) => {
-    return executeResponse('', { mobile })
+    return executeResponse('auth/send/otp', { mobile })
+}
+
+export const signIn = async (username: any, password: any) => {
+    return executeResponse('auth/sigin', { username, password })
 }
 
 export const otpVerify = async (mobile: any, otp: any) => {
-    return executeResponse('', { mobile, otp })
+    return executeResponse('auth/verify/otp', { mobile, otp })
 }
 
 export const createSignup = async (body: any) => {
-    return executeResponse('', body)
+    return executeResponse('secure/profile/create', body)
 }
 
-export const passwordVerify = async (username: any, password: any) => {
-    return executeResponse('', { username, password })
+export const passwordSetup = async (username: any, password: any) => {
+    return executeResponse('secure/profile/auth', { username, password })
 }
 
-export const forgotPassword = async (username: any, email: any, mobile: any) => {
-    return executeResponse('', { username, email, mobile })
+export const forgotPassword = async (username: any) => {
+    return executeResponse('auth/password/forgot', { username })
 }
 
-export const forgotPasswordVerify = async (password: any) => {
-    return executeResponse('', { password })
+export const forgotPasswordVerify = async (username: any, otp: any) => {
+    return executeResponse('auth/password/forgot/verfy', { username, otp })
+}
+
+export const forgotPasswordSetup = async (username: any, password: any) => {
+    return executeResponse('auth/password/forgot/reset', { username, password })
 }
 
 export const updateProfile = async (body: any) => {

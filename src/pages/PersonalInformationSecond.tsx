@@ -1,9 +1,10 @@
 
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, KeyboardAvoidingView, Platform,  ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
+import { passwordSetup } from "../api/api";
 
 class Componentprops extends Baseprops { }
 
@@ -11,10 +12,55 @@ const PersonalInformationSecond: React.FC<Componentprops> = (props) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [indicator, setIndicator] = useState(false)
+
 
     const handleBtn = async () => {
+        if (!username || username.trim().length === 0) {
+            Alert.alert('Alert!', 'Please enter your username.');
+            return;
+        }
 
-    }
+        if (!password || password.trim().length === 0) {
+            Alert.alert('Alert!', 'Please enter your password.');
+            return;
+        }
+        if (password.length < 6) {
+            Alert.alert(
+              'Alert!',
+              'Password must be at least 6 characters long.'
+            );
+            return;
+          }
+        if (!confirmPassword || confirmPassword.trim().length === 0) {
+            Alert.alert('Alert!', 'Please enter your confirm password.');
+            return;
+        }
+
+        if (password != confirmPassword) {
+            Alert.alert(
+                'Alert!',
+                'Password and confirm password do not match.'
+            );
+            return;
+        }
+        setIndicator(true)
+        const response = await passwordSetup(username, password);
+        setIndicator(false)
+        if (response?.code === 0) {
+            props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'HomeScreen' }]
+            })
+        } else {
+            Alert.alert(
+                'Alert!',
+                'Unable to set password. Please try again.'
+            );
+        }
+    };
+
 
     return (
         <KeyboardAvoidingView
@@ -32,6 +78,8 @@ const PersonalInformationSecond: React.FC<Componentprops> = (props) => {
                             <TextInput
                                 style={{ fontSize: 16, fontWeight: 'bold', color: '#000000', opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
+                                value={username}
+                                onChangeText={setUsername}
                             />
                         </View>
                         <Text style={{ marginHorizontal: wp(7), marginTop: hp(2), fontSize: 16, fontWeight: '500' }}>Password</Text>
@@ -39,6 +87,8 @@ const PersonalInformationSecond: React.FC<Componentprops> = (props) => {
                             <TextInput
                                 style={{ fontSize: 16, fontWeight: 'bold', color: '#000000', opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
+                                value={password}
+                                onChangeText={setPassword}
                             />
                         </View>
                         <Text style={{ marginHorizontal: wp(7), marginTop: hp(2), fontSize: 16, fontWeight: '500' }}>Confirm Password</Text>
@@ -46,15 +96,17 @@ const PersonalInformationSecond: React.FC<Componentprops> = (props) => {
                             <TextInput
                                 style={{ fontSize: 16, fontWeight: 'bold', color: '#000000', opacity: 0.7, marginStart: wp(3), flex: 1 }}
                                 placeholderTextColor="#000000"
+                                value={confirmPassword}
+                                onChangeText={setConfirmPassword}
                             />
                         </View>
                     </ScrollView>
 
                     <View>
                         <View style={{ width: wp(86), alignSelf: 'center', marginBottom: hp(2) }}>
-                            <PrimaryButton onclick={() => props.navigation.navigate('RegisterSuccessWelcome')} title="Done" />
+                            {indicator && <ActivityIndicator color="#006175" size="large" style={{ marginBottom: hp(2) }} />}
+                            <PrimaryButton onclick={() => handleBtn()} title="Done" />
                         </View>
-                        <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Already have an account?  <Text style={{ color: '#006175', fontSize: 16 }}> Sign In</Text></Text>
                     </View>
                 </View>
             </SafeAreaView>
