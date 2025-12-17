@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, Pressable, ScrollView, StatusBar, Text, TextInput, View } from "react-native";
+import {
+    Alert,
+    Image, Pressable, ScrollView, StatusBar,
+    Text, TextInput, View
+} from "react-native";
 import BottomNavigation from "../components/BottomNavigation";
+import { executeGetResponse } from "../api/api";
+import { useFocusEffect } from "@react-navigation/native";
 
 class Componentprops extends Baseprops { }
 
 const HomeScreen: React.FC<Componentprops> = (props) => {
+
+    const [loadData, setLoadData] = useState<any>(null)
+
+    useFocusEffect(
+        useCallback(() => {
+            loadHomeDetails()
+        }, [])
+    )
+
+    const loadHomeDetails = async () => {
+        const response = await executeGetResponse('secure/home');
+        console.log('res', response)
+        if (response.code == 0) {
+            setLoadData(response.data)
+        } else {
+            Alert.alert(
+                'Alert!',
+                'Unable to load details. Please try again.'
+            );
+        }
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <StatusBar
@@ -49,54 +77,56 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                                     <Text style={{ color: '#000000', fontSize: 16, fontWeight: '500', marginTop: hp(0.5), textAlign: 'center' }}>Add Story</Text>
                                 </Pressable>
 
-                                {[1, 2, 3, 4, 5, 6].map((e: any) => (
+                                {loadData?.stories.map((e: any) => (
                                     <Pressable onPress={() => props.navigation.navigate('StoriesPlay')} key={e} style={{ width: wp(30), marginStart: wp(3) }}>
-                                        <Image style={{ width: wp(30), height: hp(18), borderRadius: 10, }} source={require('../assets/fakeimg.jpg')} />
+                                        <Image style={{ width: wp(30), height: hp(18), borderRadius: 10, }} source={{uri: e.story_cover}} />
                                         <View style={{ marginTop: hp(-2.5), justifyContent: 'center', borderRadius: 20, alignSelf: 'center' }}>
-                                            <Image style={{ width: 36, height: 36, borderRadius: 20, alignSelf: 'center' }} source={require('../assets/roundimg.jpg')} />
+                                            <Image style={{ width: 36, height: 36, borderRadius: 20, alignSelf: 'center' }} source={{uri: e.avatar}} />
                                         </View>
-                                        <Text style={{ color: '#000000', fontSize: 16, fontWeight: '500', marginTop: hp(0.5), textAlign: 'center' }}>Sairam</Text>
+                                        <Text style={{ color: '#000000', fontSize: 16, fontWeight: '500', marginTop: hp(0.5), textAlign: 'center' }}>{e.name}</Text>
                                     </Pressable>
                                 ))}
                             </View>
                         </ScrollView>
                     </View>
 
-                    <View style={{ backgroundColor: '#dcdcdc', paddingHorizontal: wp(5), paddingVertical: hp(1), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Pressable onPress={() => props.navigation.navigate('UserProfile')}>
-                                <Image style={{ width: 45, height: 45, borderRadius: 25, }} source={require('../assets/roundimg.jpg')} />
-                            </Pressable>
-                            <View style={{ marginStart: wp(3) }}>
-                                <Text style={{ color: '#000000', fontSize: 16, fontWeight: 'bold' }}>Oyin Dolapo</Text>
-                                <Text style={{ color: '#000000', fontSize: 14, fontWeight: 'bold' }}>1hr ago</Text>
+                    {loadData?.posts[0] &&
+                        <View style={{ backgroundColor: '#dcdcdc', paddingHorizontal: wp(5), paddingVertical: hp(1), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10 }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Pressable onPress={() => props.navigation.navigate('UserProfile')}>
+                                    <Image style={{ width: 45, height: 45, borderRadius: 25, }} source={require('../assets/roundimg.jpg')} />
+                                </Pressable>
+                                <View style={{ marginStart: wp(3) }}>
+                                    <Text style={{ color: '#000000', fontSize: 16, fontWeight: 'bold' }}>{loadData?.posts[0].user.name}</Text>
+                                    <Text style={{ color: '#000000', fontSize: 14, fontWeight: 'bold' }}>{loadData?.posts[0].created_at}</Text>
+                                </View>
                             </View>
-                        </View>
-                        <Text style={{ marginTop: hp(1), fontWeight: '500' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra </Text>
-                        <Image style={{ width: wp(80), height: hp(20), borderRadius: 10, marginTop: hp(1) }} source={require('../assets/men.jpg')} />
+                            <Text style={{ marginTop: hp(1), fontWeight: '500' }}>{loadData?.posts[0].caption}</Text>
+                            <Image style={{ width: wp(80), height: hp(20), borderRadius: 10, marginTop: hp(1) }} source={{uri: loadData?.posts[0].media_url}} />
 
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: hp(1) }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Image style={{ width: 30, height: 30, borderRadius: 25, }} source={require('../assets/roundimg.jpg')} />
-                                <Image style={{ width: 30, height: 30, borderRadius: 25, marginStart: wp(-3) }} source={require('../assets/roundimg.jpg')} />
-                                <Image style={{ width: 30, height: 30, borderRadius: 25, marginStart: wp(-3) }} source={require('../assets/roundimg.jpg')} />
-                            </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: hp(1) }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <Image style={{ width: 18, height: 18, }} resizeMode='contain' source={require('../assets/Heart.png')} />
-                                    <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>247</Text>
+                                    <Image style={{ width: 30, height: 30, borderRadius: 25, }} source={require('../assets/roundimg.jpg')} />
+                                    <Image style={{ width: 30, height: 30, borderRadius: 25, marginStart: wp(-3) }} source={require('../assets/roundimg.jpg')} />
+                                    <Image style={{ width: 30, height: 30, borderRadius: 25, marginStart: wp(-3) }} source={require('../assets/roundimg.jpg')} />
                                 </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: wp(3) }}>
-                                    <Pressable onPress={() => props.navigation.navigate('Comments')}>
-                                        <Image style={{ width: 18, height: 18, tintColor: '#000000' }} resizeMode='contain' source={require('../assets/Chat.png')} />
-                                    </Pressable>
-                                    <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>57</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <Image style={{ width: 18, height: 18, }} resizeMode='contain' source={require('../assets/Heart.png')} />
+                                        <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>{loadData?.posts[0].likes_count}</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: wp(3) }}>
+                                        <Pressable onPress={() => props.navigation.navigate('Comments')}>
+                                            <Image style={{ width: 18, height: 18, tintColor: '#000000' }} resizeMode='contain' source={require('../assets/Chat.png')} />
+                                        </Pressable>
+                                        <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>{loadData?.posts[0].comments_count}</Text>
+                                    </View>
                                 </View>
                             </View>
+                            <Text style={{ fontWeight: '500', marginTop: hp(1) }}>Liked by Blazinshado and {loadData?.posts[0].likes_count} others</Text>
+                            <Text style={{ fontWeight: '500', opacity: 0.6, }}>View all {loadData?.posts[0].comments_count} comments</Text>
                         </View>
-                        <Text style={{ fontWeight: '500', marginTop: hp(1) }}>Liked by Blazinshado and 100+ others</Text>
-                        <Text style={{ fontWeight: '500', opacity: 0.6, }}>View all 57 comments</Text>
-                    </View>
+                    }
 
                     <ScrollView horizontal style={{ marginTop: hp(2), marginHorizontal: wp(3) }}>
                         {[1, 2, 3, 4, 5, 6].map((e: any) => (
@@ -134,17 +164,17 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                         ))}
                     </ScrollView>
 
-                    {[1, 2, 3, 4].map((e: any) => (
+                    {loadData?.posts.map((e: any) => (
                         <View key={e} style={{ backgroundColor: '#dcdcdc', paddingHorizontal: wp(5), paddingVertical: hp(1), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Image style={{ width: 45, height: 45, borderRadius: 25, }} source={require('../assets/roundimg.jpg')} />
                                 <View style={{ marginStart: wp(3) }}>
-                                    <Text style={{ color: '#000000', fontSize: 16, fontWeight: 'bold' }}>Oyin Dolapo</Text>
-                                    <Text style={{ color: '#000000', fontSize: 14, fontWeight: 'bold' }}>1hr ago</Text>
+                                    <Text style={{ color: '#000000', fontSize: 16, fontWeight: 'bold' }}>{e.user.name}</Text>
+                                    <Text style={{ color: '#000000', fontSize: 14, fontWeight: 'bold' }}>{e.created_at}</Text>
                                 </View>
                             </View>
-                            <Text style={{ marginTop: hp(1), fontWeight: '500' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra </Text>
-                            <Image style={{ width: wp(80), height: hp(20), borderRadius: 10, marginTop: hp(1) }} source={require('../assets/men.jpg')} />
+                            <Text style={{ marginTop: hp(1), fontWeight: '500' }}>{e.caption}</Text>
+                            <Image style={{ width: wp(80), height: hp(20), borderRadius: 10, marginTop: hp(1) }} source={{ uri: e.media_url }} />
 
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: hp(1) }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -155,16 +185,16 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <Image style={{ width: 18, height: 18, }} resizeMode='contain' source={require('../assets/Heart.png')} />
-                                        <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>247</Text>
+                                        <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>{e.likes_count}</Text>
                                     </View>
                                     <Pressable onPress={() => props.navigation.navigate('Comments')} style={{ flexDirection: 'row', alignItems: 'center', marginStart: wp(3) }}>
                                         <Image style={{ width: 18, height: 18, tintColor: '#000000' }} resizeMode='contain' source={require('../assets/Chat.png')} />
-                                        <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>57</Text>
+                                        <Text style={{ color: '#000000', fontWeight: '500', marginStart: wp(3) }}>{e.comments_count}</Text>
                                     </Pressable>
                                 </View>
                             </View>
-                            <Text style={{ fontWeight: '500', marginTop: hp(1) }}>Liked by Blazinshado and 100+ others</Text>
-                            <Text style={{ fontWeight: '500', opacity: 0.6, }}>View all 57 comments</Text>
+                            <Text style={{ fontWeight: '500', marginTop: hp(1) }}>Liked by Blazinshado and {e.likes_count} others</Text>
+                            <Text style={{ fontWeight: '500', opacity: 0.6, }}>View all {e.comments_count} comments</Text>
                         </View>
                     ))}
 

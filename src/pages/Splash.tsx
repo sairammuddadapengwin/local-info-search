@@ -17,6 +17,7 @@ const Splash: React.FC<Componentprops> = (props) => {
 
     const loadProfileLoading = async () => {
         const token = await getToken();
+        console.log('token', token)
         if (token && token != '') {
             const response = await executeGetResponse('secure/profile')
             if (response.code == 0) {

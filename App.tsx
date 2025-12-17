@@ -37,6 +37,7 @@ import Settings from './src/pages/Settings';
 import Security from './src/pages/Security';
 import AccountPrivacy from './src/pages/AccountPrivacy';
 import ProfileAuthentication from './src/pages/ProfileAuthentication';
+import CategoryVedioPlay from './src/pages/CategoryVedioPlay';
 
 const Stack = createNativeStackNavigator();
 
@@ -79,6 +80,7 @@ function RootStack() {
       <Stack.Screen name="Security" component={Security} />
       <Stack.Screen name="AccountPrivacy" component={AccountPrivacy} />
       <Stack.Screen name="ProfileAuthentication" component={ProfileAuthentication} />
+      <Stack.Screen name="CategoryVedioPlay" component={CategoryVedioPlay} />
     </Stack.Navigator>
   );
 }

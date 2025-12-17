@@ -3,7 +3,7 @@ import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ActivityIndicator, Alert, Image, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
-import { signIn } from "../api/api";
+import { setToken, signIn } from "../api/api";
 
 class Componentprops extends Baseprops { }
 
@@ -16,8 +16,10 @@ const SignInScreen: React.FC<Componentprops> = (props) => {
     const handleSigninBtn = async () => {
         setIndicator(true)
         const response = await signIn(username, password)
+        console.log('res', response)
         setIndicator(false)
         if (response.code == 0) {
+            setToken(response.token)
             props.navigation.reset({
                 index: 0,
                 routes: [{ name: 'HomeScreen' }]
@@ -58,7 +60,7 @@ const SignInScreen: React.FC<Componentprops> = (props) => {
                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                     <View>
                         <View style={{ width: wp(86), alignSelf: 'center', marginBottom: hp(2) }}>
-                        {indicator && <ActivityIndicator color="#006175" size="large" style={{marginBottom: hp(2)}} /> }
+                            {indicator && <ActivityIndicator color="#006175" size="large" style={{ marginBottom: hp(2) }} />}
                             <PrimaryButton onclick={() => handleSigninBtn()} title="Done" />
                         </View>
                         <Text style={{ textAlign: 'center', color: '#000000', fontWeight: 'bold', marginBottom: hp(5) }}>Do not have an account?  <Text onPress={() => props.navigation.navigate('Login')} style={{ color: '#006175', fontSize: 16 }}> Sign Up</Text></Text>
