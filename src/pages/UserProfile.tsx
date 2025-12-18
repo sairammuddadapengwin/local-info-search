@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, Image, Pressable, ScrollView, Text, View } from "react-native";
 import BottomNavigation from "../components/BottomNavigation";
+import { executeGetResponse } from "../api/api";
+import { useFocusEffect } from "@react-navigation/native";
 
 class Componentprops extends Baseprops { }
 
 const UserProfile: React.FC<Componentprops> = (props) => {
+
+    const [userData, setUserData] = useState<any>(null)
+
+    useFocusEffect(
+        useCallback(() => {
+            loadUsersDetails(props.route && props.route.params && props.route.params.id)
+        }, [])
+    )
+
+    const loadUsersDetails = async (UserId: any) => {
+        const response = await executeGetResponse(`secure/profile/user/${UserId}`)
+        console.log('res', response)
+        console.log('res', UserId)
+        if (response.code == 0) {
+            setUserData(response.data)
+        } else {
+            Alert.alert(
+                'Alert!',
+                'Unable to load user details. Please try again.'
+            );
+        }
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>
@@ -20,16 +45,16 @@ const UserProfile: React.FC<Componentprops> = (props) => {
                 </View>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(4) }}>
-                    <Image style={{ width: 60, height: 60, borderRadius: 30, }} source={require('../assets/profile.jpg')} />
+                    <Image style={{ width: 60, height: 60, borderRadius: 30, }} source={{ uri: userData?.profile?.profile_image }} />
                     <View style={{ flex: 1, marginStart: wp(3) }}>
-                        <Text style={{ color: '#000000', fontSize: 18, fontWeight: 'bold' }}>Abdul Qudus</Text>
-                        <Text style={{ color: '#000000', marginTop: hp(0.5), fontWeight: '500' }}>Abeokuta, Ogun</Text>
+                        <Text style={{ color: '#000000', fontSize: 18, fontWeight: 'bold' }}>{userData?.profile?.full_name}</Text>
+                        <Text style={{ color: '#000000', marginTop: hp(0.5), fontWeight: '500' }}>{userData?.profile?.bio}</Text>
                     </View>
                     <Image style={{ width: 20, height: 20, }} resizeMode='contain' source={require('../assets/menu.png')} />
                 </View>
 
                 <View style={{ marginHorizontal: wp(5), marginTop: hp(2), flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ color: '#000000', fontSize: 16, fontWeight: '500', width: wp(40) }}>I’m a postive person. I love to travel and eat Always available for chat</Text>
+                    <Text style={{ color: '#000000', fontSize: 16, fontWeight: '500', width: wp(40) }}>{userData?.profile?.bio}</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View>
                             <View style={{ borderColor: '#000000', borderWidth: 1, borderRadius: 20, paddingVertical: hp(1), paddingHorizontal: wp(5) }}>
@@ -46,19 +71,19 @@ const UserProfile: React.FC<Componentprops> = (props) => {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: hp(2) }}>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18 }}>87</Text>
+                        <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18 }}>{userData?.profile?.posts_count}</Text>
                         <Text style={{ color: '#000000', fontWeight: '500', fontSize: 16 }}>Posts</Text>
                     </View>
                     <View style={{ backgroundColor: '#000000', width: 1.5, marginHorizontal: wp(7) }}>
                     </View>
-                    <Pressable onPress={() => props.navigation.navigate('Followers')} style={{ alignItems: 'center' }}>
-                        <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18 }}>870</Text>
+                    <Pressable onPress={() => props.navigation.navigate('Followers', {id: userData?.profile?.user_id})} style={{ alignItems: 'center' }}>
+                        <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18 }}>{userData?.profile?.following_count}</Text>
                         <Text style={{ color: '#000000', fontWeight: '500', fontSize: 16 }}>Following</Text>
                     </Pressable>
                     <View style={{ backgroundColor: '#000000', width: 1.5, marginHorizontal: wp(7) }}>
                     </View>
-                    <Pressable onPress={() => props.navigation.navigate('Followers')} style={{ alignItems: 'center' }}>
-                        <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18 }}>15k</Text>
+                    <Pressable onPress={() => props.navigation.navigate('Followers', {id: userData?.profile?.user_id})} style={{ alignItems: 'center' }}>
+                        <Text style={{ color: '#000000', fontWeight: 'bold', fontSize: 18 }}>{userData?.profile?.followers_count}</Text>
                         <Text style={{ color: '#000000', fontWeight: '500', fontSize: 16 }}>Followers</Text>
                     </Pressable>
                 </View>
@@ -67,15 +92,14 @@ const UserProfile: React.FC<Componentprops> = (props) => {
                     <View style={{ backgroundColor: '#00000040', height: 1.5, marginTop: hp(3) }}></View>
                     <Text style={{ color: '#000000', fontSize: 16, fontWeight: 'bold', marginHorizontal: wp(5), marginTop: hp(1) }}>Highlights</Text>
                     <ScrollView horizontal style={{ marginHorizontal: wp(5), marginTop: hp(1) }}>
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(e => (
+                        {userData?.highlights?.map((e: any) => (
                             <View style={{ alignItems: 'center', marginEnd: wp(3) }}>
-                                <Image style={{ width: 56, height: 56, borderRadius: 28 }} source={require('../assets/leaf.jpg')} />
-                                <Text style={{ color: '#000000', fontWeight: '500', marginTop: hp(0.5), fontSize: 16 }}>Joe</Text>
+                                <Image style={{ width: 56, height: 56, borderRadius: 28 }} source={{uri: e.cover_image}} />
+                                <Text style={{ color: '#000000', fontWeight: '500', marginTop: hp(0.5), fontSize: 16 }}>{e.title}</Text>
                             </View>
                         ))}
                     </ScrollView>
                     <View style={{ backgroundColor: '#00000040', height: 1.5, marginTop: hp(1.5) }}></View>
-
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: hp(1.5) }}>
                         <Text style={{ color: '#000000', fontSize: 18, fontWeight: 'bold' }}>Posts</Text>
@@ -83,12 +107,11 @@ const UserProfile: React.FC<Componentprops> = (props) => {
                         <Text style={{ color: '#9A9A9A', fontSize: 18, fontWeight: 'bold' }}>Services</Text>
                     </View>
 
-                    <View style={{flexDirection: 'row', flexWrap: 'wrap', marginTop: hp(2), marginHorizontal: wp(5), justifyContent: 'space-between'}}>
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(e => (
-                            <Image key={e} style={{ width: wp(28.5), marginBottom: hp(1), height: wp(28), borderRadius: 7 }} source={require('../assets/nature.jpg')} />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: hp(2), marginHorizontal: wp(5), justifyContent: 'space-between' }}>
+                        {userData?.posts.map((e: any) => (
+                            <Image key={e} style={{ width: wp(28.5), marginBottom: hp(1), height: wp(28), borderRadius: 7 }} source={{uri: e.thumbnail_url}} />
                         ))}
                     </View>
-
                 </ScrollView>
 
                 <View>

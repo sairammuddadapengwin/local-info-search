@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+    Alert, Image, Pressable, ScrollView, StyleSheet,
+    Text, TextInput, View
+} from "react-native";
 import BottomNavigation from "../components/BottomNavigation";
 import PrimaryButton from "../components/PrimaryButton";
 import { Dropdown } from "react-native-element-dropdown";
 import CameraModal from "../components/CameraModal";
-import { updateProfile } from "../api/api";
+import { executeGetResponse, updateProfile } from "../api/api";
+import { useFocusEffect } from "@react-navigation/native";
 
 class Componentprops extends Baseprops { }
 
@@ -16,6 +20,42 @@ const EditProfile: React.FC<Componentprops> = (props) => {
     const [cameraModal, setCameraModal] = useState(false)
     const [selectedImage, setSelectedImage] = useState<any>(null)
     const [profileObj, setProfileObj] = useState<any>({})
+    const [categoryList, setCategoryList] = useState<any[]>([])
+    const [categoryId, setCategoryId] = useState<any>('')
+    const [subCategoryId, setSubCategoryId] = useState<any>('')
+    const [subCategoryList, setSubCategoryList] = useState<any[]>([])
+
+    useFocusEffect(
+        useCallback(() => {
+            loadCategoryList()
+        }, [])
+    )
+
+    const loadCategoryList = async () => {
+        const response = await executeGetResponse('secure/category')
+        console.log('iojojd', response)
+        if (response.code == 0) {
+            setCategoryList(response.data)
+        } else {
+            Alert.alert(
+                'Category Error',
+                'Unable to load categories. Please try again.'
+            );
+        }
+    }
+
+    const loadSubCategoryList = async (categoryid: any) => {
+        const response = await executeGetResponse(`secure/sub/category/${categoryid}`)
+        console.log('iojojd', response)
+        if (response.code == 0) {
+            setSubCategoryList(response.data)
+        } else {
+            Alert.alert(
+                'Category Error',
+                'Unable to load categories. Please try again.'
+            );
+        }
+    }
 
     const data = [
         { label: 'Male', value: 'Male' },
@@ -40,7 +80,7 @@ const EditProfile: React.FC<Componentprops> = (props) => {
             Alert.alert(
                 'Update Failed',
                 'Unable to update your profile. Please try again.'
-              );
+            );
         }
     }
 
@@ -67,12 +107,12 @@ const EditProfile: React.FC<Componentprops> = (props) => {
                         </Pressable>
                         :
                         <Pressable onPress={() => setCameraModal(true)}>
-                            <Image style={{ width: 60, height: 60, borderRadius: 30, }} source={require('../assets/roundimg.jpg')} />
+                            <Image style={{ width: 60, height: 60, borderRadius: 30, }} source={{ uri: props.route && props.route.params.data.profile_image }} />
                         </Pressable>
                     }
                     <View style={{ flex: 1, marginStart: wp(3) }}>
-                        <Text style={{ color: '#000000', fontSize: 18, fontWeight: 'bold' }}>Oyin Dolapo</Text>
-                        <Text style={{ color: '#000000', marginTop: hp(0.5), fontWeight: '500' }}>Abeokuta, Ogun</Text>
+                        <Text style={{ color: '#000000', fontSize: 18, fontWeight: 'bold' }}>{props.route && props.route.params.data.full_name}</Text>
+                        <Text style={{ color: '#000000', marginTop: hp(0.5), fontWeight: '500' }}>{props.route && props.route.params.data.username}</Text>
                     </View>
                 </View>
 
@@ -146,16 +186,17 @@ const EditProfile: React.FC<Componentprops> = (props) => {
                             selectedTextStyle={styles.selectedTextStyle}
                             inputSearchStyle={styles.inputSearchStyle}
                             iconStyle={styles.iconStyle}
-                            data={data}
+                            data={categoryList}
                             search
                             maxHeight={300}
-                            labelField="label"
-                            valueField="value"
+                            labelField="category"
+                            valueField="id"
                             placeholder=''
                             searchPlaceholder="Search..."
-                            value={gender}
+                            value={categoryId}
                             onChange={item => {
-                                setGender(item.value);
+                                setCategoryId(item.id);
+                                loadSubCategoryList(item.id);
                             }}
                         />
                     </View>
@@ -169,16 +210,16 @@ const EditProfile: React.FC<Componentprops> = (props) => {
                             selectedTextStyle={styles.selectedTextStyle}
                             inputSearchStyle={styles.inputSearchStyle}
                             iconStyle={styles.iconStyle}
-                            data={data}
+                            data={subCategoryList}
                             search
                             maxHeight={300}
-                            labelField="label"
-                            valueField="value"
+                            labelField="sub_category"
+                            valueField="id"
                             placeholder=''
                             searchPlaceholder="Search..."
-                            value={gender}
+                            value={subCategoryId}
                             onChange={item => {
-                                setGender(item.value);
+                                setSubCategoryId(item.id);
                             }}
                         />
                     </View>

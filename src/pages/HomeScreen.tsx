@@ -93,7 +93,7 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                     {loadData?.posts[0] &&
                         <View style={{ backgroundColor: '#dcdcdc', paddingHorizontal: wp(5), paddingVertical: hp(1), marginHorizontal: wp(5), marginTop: hp(2), borderRadius: 10 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Pressable onPress={() => props.navigation.navigate('UserProfile')}>
+                                <Pressable onPress={() => props.navigation.navigate('UserProfile', {id: loadData?.posts[0].user.id})}>
                                     <Image style={{ width: 45, height: 45, borderRadius: 25, }} source={require('../assets/roundimg.jpg')} />
                                 </Pressable>
                                 <View style={{ marginStart: wp(3) }}>
