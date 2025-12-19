@@ -78,7 +78,7 @@ const HomeScreen: React.FC<Componentprops> = (props) => {
                                 </Pressable>
 
                                 {loadData?.stories.map((e: any) => (
-                                    <Pressable onPress={() => props.navigation.navigate('StoriesPlay')} key={e} style={{ width: wp(30), marginStart: wp(3) }}>
+                                    <Pressable onPress={() => props.navigation.navigate('StoriesPlay', {id: e.user_id})} key={e} style={{ width: wp(30), marginStart: wp(3) }}>
                                         <Image style={{ width: wp(30), height: hp(18), borderRadius: 10, }} source={{uri: e.story_cover}} />
                                         <View style={{ marginTop: hp(-2.5), justifyContent: 'center', borderRadius: 20, alignSelf: 'center' }}>
                                             <Image style={{ width: 36, height: 36, borderRadius: 20, alignSelf: 'center' }} source={{uri: e.avatar}} />

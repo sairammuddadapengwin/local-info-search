@@ -1,13 +1,38 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
+import {
+    Alert, Image, Text, TextInput, TouchableWithoutFeedback,
+    View
+} from "react-native";
 import BottomNavigation from "../components/BottomNavigation";
 import Video from "react-native-video";
+import { executeGetResponse } from "../api/api";
+import { useFocusEffect } from "@react-navigation/native";
 
 class Componentprops extends Baseprops { }
 
 const StoriesPlay: React.FC<Componentprops> = (props) => {
+
+    useFocusEffect(
+        useCallback(() => {
+            loadStories(props.route && props.route.params && props.route.params.id)
+        }, [])
+    )
+
+    const loadStories = async (userId: any) => {
+        const response = await executeGetResponse(`secure/home/storie/${userId}`)
+        console.log('storeies', response)
+        console.log('storeies', userId)
+        if (response.code == 0) {
+
+        } else {
+            Alert.alert(
+                'Unable to load stories',
+                'Stories could not be loaded. Please try again later.'
+            );
+        }
+    }
 
     const reelsData = [
         { id: '1', video: require('../assets/sample1.mp4') },
@@ -44,6 +69,7 @@ const StoriesPlay: React.FC<Componentprops> = (props) => {
         <SafeAreaView style={{ flex: 1, }}>
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, width: wp(100), backgroundColor: '#000000' }}>
+
                     <Video
                         ref={videoRef}
                         source={reelsData[currentIndex].video}
@@ -60,7 +86,6 @@ const StoriesPlay: React.FC<Componentprops> = (props) => {
                             }
                         }}
                     />
-
 
                     <View style={{ position: 'absolute', top: hp(2) }}>
                         <View
