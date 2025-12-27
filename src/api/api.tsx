@@ -116,5 +116,9 @@ export const updateProfile = async (body: any) => {
             data.append(key, value)
         }
     }
-    return executeResponse('', data)
+    return executeResponse('secure/myprofile/update', data)
+}
+
+export const loadLoungeDetailsAccess = async (state_id?: any, district_id?: any, category_id?: any) => {
+    return executeResponse('secure/lounge', { state_id, district_id, category_id })
 }

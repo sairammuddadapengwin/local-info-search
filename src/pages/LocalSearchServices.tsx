@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import BottomNavigation from "../components/BottomNavigation";
+import { loadLoungeDetailsAccess } from "../api/api";
+import { useFocusEffect } from "@react-navigation/native";
 
 class Componentprops extends Baseprops { }
 
 const LocalSearchServices: React.FC<Componentprops> = (props) => {
+
+    useFocusEffect(
+        useCallback(() => {
+            loadLoungeDetails()
+        }, [])
+    )
+
+    const loadLoungeDetails = async () => {
+        const response = await loadLoungeDetailsAccess();
+        console.log('response', response)
+        if (response.code == 0) {
+
+        } else {
+            Alert.alert(
+                'Error',
+                'Unable to load lounge details. Please try again.'
+            );
+        }
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
             <View style={{ flex: 1 }}>

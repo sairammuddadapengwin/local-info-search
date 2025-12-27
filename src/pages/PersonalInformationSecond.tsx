@@ -1,7 +1,10 @@
 
 import { Baseprops, hp, wp } from "../utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ActivityIndicator, Alert, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+    ActivityIndicator, Alert, Image, KeyboardAvoidingView, Platform,
+    ScrollView, StyleSheet, Text, TextInput, View
+} from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
 import { passwordSetup } from "../api/api";
@@ -25,14 +28,14 @@ const PersonalInformationSecond: React.FC<Componentprops> = (props) => {
         if (!password || password.trim().length === 0) {
             Alert.alert('Alert!', 'Please enter your password.');
             return;
-        }
+        } 
         if (password.length < 6) {
             Alert.alert(
-              'Alert!',
-              'Password must be at least 6 characters long.'
+                'Alert!',
+                'Password must be at least 6 characters long.'
             );
             return;
-          }
+        }
         if (!confirmPassword || confirmPassword.trim().length === 0) {
             Alert.alert('Alert!', 'Please enter your confirm password.');
             return;
